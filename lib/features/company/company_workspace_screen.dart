@@ -432,7 +432,10 @@ class _ConnectionsTab extends StatelessWidget {
             const _EmptyCard(text: 'The backend did not return any integration records.')
           else
             ...plugins.map((plugin) {
-              final capabilities = _asList(plugin['capabilities']).map((value) => value.toString()).where((value) => value.isNotEmpty).toList(growable: false);
+              final rawCapabilities = plugin['capabilities'];
+              final capabilities = rawCapabilities is List
+                  ? rawCapabilities.whereType<String>().where((value) => value.isNotEmpty).toList(growable: false)
+                  : const <String>[];
               return _ConnectionCard(
                 name: _firstText(plugin, ['name'], 'Service'),
                 category: _firstText(plugin, ['category'], 'Integration'),
@@ -630,7 +633,6 @@ class _ConnectionCard extends StatelessWidget {
       'available_next' => 'Available to add',
       _ => state.replaceAll('_', ' '),
     };
-    final color = good ? scheme.primary : caution ? scheme.error : scheme.onSurfaceVariant;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
