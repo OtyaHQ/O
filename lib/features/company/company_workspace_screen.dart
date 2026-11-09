@@ -721,6 +721,22 @@ class _RecordCard extends StatelessWidget {
   }
 }
 
+class _SurfaceCard extends StatelessWidget {
+  const _SurfaceCard({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: child,
+      ),
+    );
+  }
+}
+
 class _EmptyCard extends StatelessWidget {
   const _EmptyCard({required this.text});
 
