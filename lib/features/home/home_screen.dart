@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import '../../core/network/next_owner_api.dart';
 import '../../core/platform/next_platform_bridge.dart';
 import '../../core/security/owner_biometric.dart';
+import '../company/company_workspace_screen.dart';
 import '../workspace/workspace_controller.dart';
 import '../workspace/workspace_overlay.dart';
-import '../company/company_workspace_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
