@@ -4,7 +4,7 @@
 
 ## Mission
 
-**Canonical business identity:** Otya Hold Ltd T/A OtyaPoint. “OmniPoint” is a legacy identifier in older repositories/resources and migration history only; it is not the current trading identity.
+**Product identity:** OtyaPoint is the public product name for the shop and business-operations experience. This architecture document describes product boundaries and does not assert legal registration, ownership or trading-name status.
 
 Leo is the owner's AI coordinator for the whole Otya ecosystem, not an OtyaPoint-only assistant. It should coordinate discovery, planning, execution, verification and reporting across OtyaPoint, Otya End, Otya Media, OtyaHub, Cloudflare, GitHub, Resend and approved partner integrations.
 
