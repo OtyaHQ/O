@@ -700,7 +700,7 @@ class _PulseSnapshot {
     final crashCount = crashes is List ? crashes.length : 0;
     final healthy = ready == 3;
     return _PulseSnapshot(
-      label: healthy ? 'LIVE' : 'PULSE',
+      label: healthy ? 'READY' : 'CHECK',
       detail: '$ready/3 core · $crashCount crash groups',
       healthy: healthy,
       loading: false,
