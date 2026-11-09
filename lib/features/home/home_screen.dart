@@ -9,6 +9,7 @@ import '../../core/platform/next_platform_bridge.dart';
 import '../../core/security/owner_biometric.dart';
 import '../workspace/workspace_controller.dart';
 import '../workspace/workspace_overlay.dart';
+import '../company/company_workspace_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -260,6 +261,22 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       });
       if (!silent) _pushEvent(_pulseError, severity: _HudSeverity.warning);
     }
+  }
+
+  Future<void> _openCompanyWorkspace() async {
+    await _stopListening();
+    if (!mounted) return;
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (_) => CompanyWorkspaceScreen(
+          api: widget.api,
+          onOwnerExpired: widget.onOwnerExpired,
+        ),
+      ),
+    );
+    if (!mounted) return;
+    unawaited(_loadPulse(silent: true));
+    if (_autoVoice) _scheduleListen(const Duration(milliseconds: 500));
   }
 
   Future<void> _startListening() async {
@@ -587,6 +604,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                       icon: const Icon(Icons.add_circle_outline)),
                     IconButton(tooltip: 'Toggle transcript', onPressed: () => setState(() => _showTranscript = !_showTranscript),
                       icon: const Icon(Icons.closed_caption_outlined)),
+                    IconButton(tooltip: 'Company workspace', onPressed: _openCompanyWorkspace,
+                      icon: const Icon(Icons.business_center_outlined)),
                     if (!_workspace.isOpen && _workspace.items.isNotEmpty)
                       IconButton(tooltip: 'Restore panels', onPressed: _workspace.restore,
                         icon: const Icon(Icons.layers_outlined)),
