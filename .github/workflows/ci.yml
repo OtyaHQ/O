@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
-          flutter-version: '3.47.2'
+          flutter-version: '3.47.9'
           channel: stable
           # Flutter + Android toolchains fill the runner disk; avoid duplicating them in a cache archive.
           cache: false
@@ -55,7 +55,7 @@ jobs:
       - name: Keep installable debug APK for manual runs
         if: github.event_name == 'workflow_dispatch'
         continue-on-error: true
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: next-debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
