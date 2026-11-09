@@ -288,12 +288,6 @@ class _ProductsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = _asMap(report['status']);
-    final releases = _asList(report['releases']);
-    final hasSignals = _number(status['users']) > 0 ||
-        _number(status['devices']) > 0 ||
-        releases.isNotEmpty;
-
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: ListView(
@@ -311,7 +305,7 @@ class _ProductsTab extends StatelessWidget {
           const _ProductCard(name: 'Otya OS', detail: 'The unified platform and shared ecosystem experience.', state: 'Platform', icon: Icons.grid_view_rounded),
           const _ProductCard(name: 'Otya End', detail: 'Shared identity, product-scoped APIs and integration services. Runtime signals appear in Overview and Connections.', state: 'Shared backend', icon: Icons.cloud_outlined),
           const _ProductCard(name: 'OtyaPoint', detail: 'Retail, inventory and mobile-money agency operations. Its live shop records are not connected to this owner workspace yet, so sales, stock, cash and float balances are not displayed here.', state: 'Not connected', icon: Icons.storefront_outlined, warning: true),
-          _ProductCard(name: 'Otya Media', detail: hasSignals ? 'Release and platform signals are available in the shared feed. Core playback remains local-first.' : 'Local-first music and video. No release or platform telemetry was returned in this snapshot.', state: hasSignals ? 'Signals available' : 'Awaiting signals', icon: Icons.play_circle_outline_rounded),
+          const _ProductCard(name: 'Otya Media', detail: 'Local-first music and video. Product-specific release telemetry is not yet attributed in this owner feed.', state: 'Local-first', icon: Icons.play_circle_outline_rounded),
           const _ProductCard(name: 'OtyaHub', detail: 'Public developer and partner documentation. Private business operations and owner controls remain outside the public hub.', state: 'Public surface', icon: Icons.code_rounded),
           const _ProductCard(name: 'Otya Next', detail: 'This private owner assistant and company workspace. Sensitive actions remain approval-gated.', state: 'Current workspace', icon: Icons.auto_awesome_rounded),
           const SizedBox(height: 8),
