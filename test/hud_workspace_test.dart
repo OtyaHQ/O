@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:next/features/workspace/workspace_controller.dart';
-import 'package:next/features/workspace/workspace_overlay.dart';
+import 'package:o_app/features/workspace/workspace_controller.dart';
+import 'package:o_app/features/workspace/workspace_overlay.dart';
 
 void main() {
   final controller = WorkspaceController.instance;

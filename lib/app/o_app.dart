@@ -3,14 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../features/auth/owner_gate.dart';
 
-class NextApp extends ConsumerWidget {
-  const NextApp({super.key});
+class OApp extends ConsumerWidget {
+  const OApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Otya Next',
+      title: 'O',
       themeMode: ThemeMode.system,
       theme: _theme(Brightness.light),
       darkTheme: _theme(Brightness.dark),

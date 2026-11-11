@@ -482,7 +482,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       }
 
       _pushEvent(
-        reply.tool == null ? 'Otya Next answered.' : 'Otya Next used ${reply.tool!.replaceAll('_', ' ')}.',
+        reply.tool == null ? 'O answered.' : 'O used ${reply.tool!.replaceAll('_', ' ')}.',
         severity: _HudSeverity.info,
       );
 

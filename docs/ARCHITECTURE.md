@@ -1,8 +1,8 @@
-# Next architecture
+# O architecture
 
 ## Goal
 
-Next is the private owner interface to OTYA intelligence. The phone app is a secure client and device agent; privileged reasoning, company knowledge and infrastructure actions remain on Cloudflare.
+O is the private owner interface to OTYA intelligence. The phone app is a secure client and device agent; privileged reasoning, company knowledge and infrastructure actions remain on Cloudflare.
 
 The design target is a persistent, conversational operating companion rather than a dashboard or command syntax.
 
@@ -13,7 +13,7 @@ Owner
   │
   ├─ text / voice / camera / screen / approvals
   ▼
-Next Android app
+O Android app
   ├─ Flutter presentation + feature logic
   ├─ secure OTYA identity session
   ├─ native Android assistant/device bridge
@@ -47,7 +47,7 @@ Use feature-first MVVM with repositories and services. UI remains declarative an
 ```text
 lib/
   app/
-    next_app.dart
+    o_app.dart
     router.dart
     theme.dart
   core/
@@ -207,7 +207,7 @@ The model never grants itself permission. Server policy is authoritative.
 
 ## Owner authentication
 
-The existing OTYA account tokens remain the base identity. Next should add a mobile-owner grant rather than reuse browser cookies.
+The existing OTYA account tokens remain the base identity. O should add a mobile-owner grant rather than reuse browser cookies.
 
 Target flow:
 
