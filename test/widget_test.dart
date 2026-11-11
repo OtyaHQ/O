@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:next/app/next_app.dart';
-import 'package:next/features/auth/owner_gate.dart';
+import 'package:o_app/app/o_app.dart';
+import 'package:o_app/features/auth/owner_gate.dart';
 
 void main() {
-  testWidgets('Next opens through trusted owner-device gate', (tester) async {
-    await tester.pumpWidget(const ProviderScope(child: NextApp()));
+  testWidgets('O opens through trusted owner-device gate', (tester) async {
+    await tester.pumpWidget(const ProviderScope(child: OApp()));
 
     expect(find.byType(OwnerGate), findsOneWidget);
     expect(find.text('Opening Next…'), findsOneWidget);
