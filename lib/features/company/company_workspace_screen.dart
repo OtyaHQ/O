@@ -272,7 +272,7 @@ class _OverviewTab extends StatelessWidget {
           const _NoticeCard(
             icon: Icons.shield_outlined,
             title: 'Separate systems, one workspace',
-            text: 'OtyaPoint shop and agency balances are not connected to this feed yet. Sales, stock, cash and float figures are deliberately not estimated or mixed with platform telemetry.',
+            text: 'OPoint shop and agency balances are not connected to this feed yet. Sales, stock, cash and float figures are deliberately not estimated or mixed with platform telemetry.',
           ),
         ],
       ),
@@ -304,10 +304,10 @@ class _ProductsTab extends StatelessWidget {
           const SizedBox(height: 16),
           const _ProductCard(name: 'Otya OS', detail: 'The unified platform and shared ecosystem experience.', state: 'Platform', icon: Icons.grid_view_rounded),
           const _ProductCard(name: 'Otya End', detail: 'Shared identity, product-scoped APIs and integration services. Runtime signals appear in Overview and Connections.', state: 'Shared backend', icon: Icons.cloud_outlined),
-          const _ProductCard(name: 'OtyaPoint', detail: 'Retail, inventory and mobile-money agency operations. Its live shop records are not connected to this owner workspace yet, so sales, stock, cash and float balances are not displayed here.', state: 'Not connected', icon: Icons.storefront_outlined, warning: true),
-          const _ProductCard(name: 'Otya Media', detail: 'Local-first music and video. Product-specific release telemetry is not yet attributed in this owner feed.', state: 'Local-first', icon: Icons.play_circle_outline_rounded),
-          const _ProductCard(name: 'OtyaHub', detail: 'Public developer and partner documentation. Private business operations and owner controls remain outside the public hub.', state: 'Public surface', icon: Icons.code_rounded),
-          const _ProductCard(name: 'Otya Next', detail: 'This private owner assistant and company workspace. Sensitive actions remain approval-gated.', state: 'Current workspace', icon: Icons.auto_awesome_rounded),
+          const _ProductCard(name: 'OPoint', detail: 'Retail, inventory and mobile-money agency operations. Its live shop records are not connected to this owner workspace yet, so sales, stock, cash and float balances are not displayed here.', state: 'Not connected', icon: Icons.storefront_outlined, warning: true),
+          const _ProductCard(name: 'Omy Play', detail: 'Local-first music and video. Product-specific release telemetry is not yet attributed in this owner feed.', state: 'Local-first', icon: Icons.play_circle_outline_rounded),
+          const _ProductCard(name: 'OHub', detail: 'Public developer and partner documentation. Private business operations and owner controls remain outside the public hub.', state: 'Public surface', icon: Icons.code_rounded),
+          const _ProductCard(name: 'O', detail: 'This private owner assistant and company workspace. Sensitive actions remain approval-gated.', state: 'Current workspace', icon: Icons.auto_awesome_rounded),
           const SizedBox(height: 8),
           const _NoticeCard(
             icon: Icons.lock_outline_rounded,
