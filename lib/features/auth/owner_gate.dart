@@ -52,7 +52,7 @@ class _OwnerGateState extends State<OwnerGate> {
       final ownerReady = await _auth.hasValidOwnerGrant();
       _setStage(
         ownerReady ? _OwnerStage.ready : _OwnerStage.ownerStart,
-        notice: ownerReady ? '' : 'Your OTYA account is signed in. Trust this phone once to enable private owner controls.',
+        notice: ownerReady ? '' : 'Your Otya Account is signed in. Trust this phone once to enable private owner controls.',
       );
     } catch (_) {
       _setStage(_OwnerStage.signIn);
@@ -112,7 +112,7 @@ class _OwnerGateState extends State<OwnerGate> {
       await _auth.startOwnerVerification();
       _setStage(
         _OwnerStage.ownerOtp,
-        notice: 'A one-time device enrollment code was sent to your verified OTYA email.',
+        notice: 'A one-time device enrollment code was sent to your verified Otya email.',
       );
     } on OwnerAuthException catch (e) {
       _showError(e.message);
@@ -331,7 +331,6 @@ class _OwnerGateState extends State<OwnerGate> {
       ],
     );
   }
-
 
 }
 
