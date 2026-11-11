@@ -1,82 +1,81 @@
-# Otya Next
+# O
 
-**Otya Next** is the private owner intelligence application within the Otya ecosystem.
+**Private AI operations companion for the Otya ecosystem.**
 
-It is not a second backend and it is not a browser admin dashboard. Otya Next is the secure Android-first interface to the existing OTYA intelligence and operations plane: conversation, voice, approvals, incidents, support, releases, system health, connected services, memory and device actions.
+O is the owner-only AI application for coordinating engineering, product development and company operations across the Otya ecosystem. The product is **O**; its conversational assistant persona is **Leo**.
 
-## Product direction
+O is not a shared public chatbot, a second product database or an unrestricted administrator. It connects to OEnd through authenticated, narrowly scoped APIs and keeps owner memory separate from every product's customer context.
 
-Otya Next should feel like a persistent intelligent partner rather than a command console:
+## Product boundaries
 
-- natural text and real-time voice conversation
-- interruption / barge-in during voice replies
-- stable personality: friendly, professional, calm and lightly humorous when appropriate
-- persistent context and operational memory
-- proactive but restrained notifications
-- system awareness across Otya services
-- reflection, verification and confidence-aware answers
-- owner-only action approvals and biometric step-up
-- Android assistant role and device capabilities where the OS permits them
-- no secrets or infrastructure credentials stored in the APK
+- **OPoint** — retail and business operations. O may inspect approved company/branch-scoped read models and prepare recommendations; it cannot initiate payments or post financial records.
+- **Omy Play** — local-first media. O cannot scan or upload local libraries, Private/Vault files, playback history or device paths.
+- **OEnd** — identity integration, model routing, policy enforcement, tool gateway and approved shared services.
+- **Otya ID** — shared identity and OTP. Telegram is not a login provider; a linked bot may deliver a requested code after email identity verification.
+- **Otya Control** — private administration and operations, with stricter permissions than normal product workspaces.
+- **OHub** — public developer documentation. O never publishes private owner context, secrets or internal runbooks there.
+
+## What O does
+
+- Understands goals and gathers evidence from approved sources.
+- Reads repository, CI, staging-health and operational status.
+- Plans work across products while respecting their ownership boundaries.
+- Creates reviewable code, documentation and test changes.
+- Runs safe, read-only checks and verifies their results.
+- Drafts migration plans, incident reports and release evidence.
+- Prepares sensitive actions for explicit owner approval.
+
+O may autonomously inspect, test and prepare a change. It must not silently merge release-critical code, deploy production, publish releases, send broadcasts, move money, change security policy, grant privileges or delete production resources.
+
+## AI architecture
+
+- The Android app is a secure client; model orchestration and privileged tools stay server-side in OEnd.
+- Workers AI is the default inference path where quality and latency tests support it.
+- AI Gateway provides provider routing, fallback policy, cost controls and observability.
+- Durable Objects provide durable agent/session state where needed.
+- D1 stores structured conversation metadata, approvals and audit references; R2 stores private generated artifacts.
+- Product knowledge and owner memory use separate namespaces and retrieval policies.
+- Voice is an optional transport; microphone audio is not continuously uploaded for wake-word detection.
+- A missing model/provider must not disable O's safe local app functions or compromise authorization.
+
+## Memory and product isolation
+
+O has its own private owner memory. It is not automatically available to OPoint users or Omy Play users.
+
+Each product assistant, when separately enabled, receives its own conversation namespace, retrieval corpus, prompt version, tool registry, rate limit, usage budget, audit context and retention policy. No cross-product memory search or D1 access is allowed by default.
+
+The model never decides who the user is or what the user may access. OEnd verifies identity and owner permissions; the owning product API enforces tenant and branch authorization on every request.
+
+## Permission levels
+
+| Level | Capability |
+|---|---|
+| Read | Inspect approved health, status, repository and business read models |
+| Draft | Prepare code, configuration, reports and proposed operations for review |
+| Approved action | Execute a narrowly typed action after fresh owner authorization and any required step-up |
+| Restricted | Money movement, irreversible deletion, security/identity changes, production deployment and public release publication |
+
+Every approved action must record the principal, scope, target, approval, idempotency key, outcome and timestamp. On missing permission, stale state or uncertain provider outcome, O fails closed.
 
 ## Technology
 
 ### App
-
-- Flutter 3.47.x / Dart for the primary UI and feature architecture
-- Riverpod for application state and dependency injection
-- go_router for navigation and deep links
-- Dio + WebSocket for authenticated REST and real-time agent sessions
-- Android Kotlin for assistant-role, voice interaction, notification access and device-level capabilities
-- Android BiometricPrompt through Flutter local_auth for sensitive approvals
-- Firebase Cloud Messaging for proactive owner alerts when the app is not active
+- Flutter/Dart with feature-first architecture and Riverpod.
+- Android native Kotlin for assistant-role integration, voice sessions and device capabilities.
+- Android secure storage and biometric step-up for sensitive approvals.
+- FCM only for safe notification hints; the app fetches authoritative state from OEnd.
 
 ### Backend
+- Cloudflare Workers and Agents SDK for orchestration.
+- Durable Objects for agent sessions and real-time communication.
+- Workers AI and AI Gateway for controlled inference.
+- D1, R2, Queues and Workflows for durable state and bounded background tasks.
+- Resend through OEnd for transactional email.
 
-Otya Next connects to the existing Otya End backend and approved Cloudflare services. Server-side intelligence remains server-side.
+## Security
 
-Target backend building blocks:
+Never bundle or commit Cloudflare API tokens, Firebase Admin credentials, Resend keys, GitHub tokens, provider secrets, signing keys or owner access tokens. User-supplied instructions and retrieved documents are untrusted data, not policy.
 
-- Cloudflare Workers / existing Otya services
-- Cloudflare Agents SDK + Durable Objects for durable agent identity, state and real-time sessions
-- Workers AI for default inference
-- AI Gateway for observability, fallback/routing and provider control
-- Cloudflare Voice for real-time STT / LLM / TTS transport where appropriate
-- AI Search / Vectorize for private product and long-term semantic knowledge
-- Workflows for durable multi-step operations
-- D1 / Durable Object SQLite for structured state and audit history
-- R2 for larger owner artifacts and reports
-- FCM for Android wake-up notifications and urgent incident delivery
+The existing Android application ID is retained as a compatibility identity until its distribution and signing status are verified. Product display name and code branding are **O**.
 
-## Security boundary
-
-The public Otya Media and other public surfaces must never inherit Otya Next owner permissions.
-
-Otya Next uses the normal Otya identity, then obtains a separate short-lived owner authorization after server-side role checks and step-up verification. High-impact operations require explicit approval and may require fresh biometric/server verification.
-
-Never commit:
-
-- Cloudflare API tokens
-- Firebase Admin credentials
-- Resend keys
-- GitHub tokens / private keys
-- signing keys
-- internal service secrets
-- owner access / refresh tokens
-
-## Initial feature areas
-
-- **Talk** — persistent owner conversation, voice and multimodal context
-- **Pulse** — what needs attention now: health, incidents, crashes, releases and support
-- **Activity** — what Next observed, investigated, changed, verified or is waiting on
-- **Approvals** — sensitive actions awaiting owner authorization
-- **Memory** — decisions, incidents, lessons and unresolved work
-- **Connections** — GitHub, Cloudflare, Gmail/Resend, Firebase, Telegram and Otya service status
-- **Device** — assistant role, wake experience, notifications, media and approved phone actions
-- **Settings** — personality, voice, permissions, autonomy, interruption policy, privacy and security
-
-## Migration rule
-
-Existing AI/admin capabilities are not copied into the client. Their browser UI is retired; Otya Next is the sole owner experience. Privileged execution remains behind authenticated server APIs, with short-lived owner authorization, biometric step-up and explicit approval for high-impact actions.
-
-See `docs/ARCHITECTURE.md`, `docs/MIGRATION_MAP.md`, and `docs/AI_EXECUTION_AND_EVALUATION_CONTRACT.md` for the AI execution, safety, hybrid operation, and evaluation gates.
+See [AI product boundaries](docs/AI_PRODUCT_ISOLATION.md) and [architecture](docs/ARCHITECTURE.md).
