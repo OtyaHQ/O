@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:next/features/workspace/office_text_extractor.dart';
+import 'package:o_app/features/workspace/office_text_extractor.dart';
 
 void main() {
   test('extracts DOCX paragraphs locally', () {
