@@ -1,5 +1,5 @@
-name: next
-description: "Otya Next — the private owner intelligence app in Otya OS."
+name: o_app
+description: "O — the private owner AI application in the Otya ecosystem."
 publish_to: 'none'
 version: 1.1.0+2
 
