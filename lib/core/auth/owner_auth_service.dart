@@ -303,7 +303,7 @@ class OwnerAuthService {
     if (!_successful(response, data)) {
       throw OwnerAuthException(
         _error(data, 'Complete email verification first.'),
-        code: response.statusCode == 401 ? 'TELEGRAM_PENDING' : null,
+        code: response.statusCode == 401 ? 'OWNER_OTP_PENDING' : null,
       );
     }
     final grant = data?['owner_grant'];
