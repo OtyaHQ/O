@@ -50,7 +50,7 @@ Target backend building blocks:
 
 ## Security boundary
 
-The public Otya Media and other public surfaces must never inherit Otya Next owner permissions.
+The public Omy Play and other public surfaces must never inherit Otya Next owner permissions.
 
 Otya Next uses the normal Otya identity, then obtains a separate short-lived owner authorization after server-side role checks and step-up verification. High-impact operations require explicit approval and may require fresh biometric/server verification.
 
