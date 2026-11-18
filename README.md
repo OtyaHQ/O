@@ -80,3 +80,5 @@ Never commit:
 Existing AI/admin capabilities are not copied into the client. Their browser UI is retired; Otya Next is the sole owner experience. Privileged execution remains behind authenticated server APIs, with short-lived owner authorization, biometric step-up and explicit approval for high-impact actions.
 
 See `docs/ARCHITECTURE.md`, `docs/MIGRATION_MAP.md`, and `docs/AI_EXECUTION_AND_EVALUATION_CONTRACT.md` for the AI execution, safety, hybrid operation, and evaluation gates.
+
+The Otya-wide product and permission boundaries are defined in `docs/AI_PRODUCT_ISOLATION.md`. O is owner-only; Opoint Copilot is tenant-scoped and read-only initially; Omy Play remains local-first and does not share business or owner memory.
