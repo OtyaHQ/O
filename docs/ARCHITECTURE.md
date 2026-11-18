@@ -211,13 +211,15 @@ The existing OTYA account tokens remain the base identity. Next should add a mob
 
 Target flow:
 
-1. normal OTYA sign-in gives access + refresh token
-2. app calls `/auth/admin/start` using bearer token
-3. existing email OTP + Telegram verification completes
-4. auth service issues a short-lived, scoped owner grant bound to user/device/session
-5. Next stores it in Android secure storage
-6. owner gateway requires both normal identity and valid owner grant
-7. sensitive operations can additionally require recent biometric + server challenge
+1. normal Otya Account sign-in gives access + refresh tokens
+2. the app calls `/auth/admin/start` using the verified bearer identity
+3. the owner enters the email OTP; the same code may also be delivered to an already-linked Telegram chat as an optional convenience
+4. the auth service issues a short-lived, scoped owner grant bound to the verified user and device
+5. Next stores the owner grant in Android secure storage
+6. the owner gateway requires both normal Otya identity and the valid owner grant
+7. sensitive operations can additionally require a recent biometric and server challenge
+
+Telegram never establishes Otya identity, creates an account, completes owner verification by itself, or issues a session. It is an optional notification and OTP-delivery channel after the user has already signed in and linked it to the Otya Account.
 
 Browser admin cookies remain separate and cannot be replayed as mobile credentials.
 
