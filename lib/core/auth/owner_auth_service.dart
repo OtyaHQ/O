@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../platform/next_platform_bridge.dart';
+import '../config/otya_endpoints.dart';
 
 class OwnerAuthException implements Exception {
   const OwnerAuthException(this.message, {this.code});
@@ -35,10 +35,7 @@ class OwnerAuthService {
   OwnerAuthService._()
       : _dio = Dio(
           BaseOptions(
-            baseUrl: const String.fromEnvironment(
-              'OTYA_BASE_URL',
-              defaultValue: 'https://petersmartlink.com',
-            ),
+            baseUrl: OtyaEndpoints.apiBaseUrl,
             connectTimeout: const Duration(seconds: 12),
             receiveTimeout: const Duration(seconds: 30),
             sendTimeout: const Duration(seconds: 15),
@@ -277,7 +274,7 @@ class OwnerAuthService {
     _requireOk(response, fallback: 'Could not start owner device enrollment.');
   }
 
-  Future<String> verifyOwnerOtp(String otp) async {
+  Future<void> verifyOwnerOtp(String otp) async {
     final response = await _dio.post<dynamic>(
       '/auth/admin/verify-otp',
       data: {'otp': otp.trim().toUpperCase()},
@@ -286,34 +283,10 @@ class OwnerAuthService {
     final data = _map(response.data);
     if (!_successful(response, data)) {
       throw OwnerAuthException(
-        _error(data, 'The verification code was not accepted.'),
+        _error(data, 'The email verification code was not accepted.'),
         code: data?['code'] is String ? data!['code'] as String : null,
       );
     }
-    final challenge = data?['telegram_challenge'];
-    if (challenge is! String ||
-        !RegExp(r'^[A-Za-z0-9_-]{16,80}$').hasMatch(challenge)) {
-      throw const OwnerAuthException(
-        'OTYA did not return a valid Telegram enrollment challenge.',
-      );
-    }
-    return challenge;
-  }
-
-  Future<void> startTelegramOwnerVerification(String challenge) async {
-    final value = challenge.trim();
-    if (!RegExp(r'^[A-Za-z0-9_-]{16,80}$').hasMatch(value)) {
-      throw const OwnerAuthException('The Telegram enrollment challenge is invalid.');
-    }
-    final uri = Uri(
-      scheme: 'tg',
-      host: 'resolve',
-      queryParameters: {
-        'domain': 'OtyaPlayerBot',
-        'start': 'owner_$value',
-      },
-    );
-    await NextPlatformBridge.openUrl(uri.toString());
   }
 
   Future<void> completeOwnerVerification() async {
@@ -328,8 +301,8 @@ class OwnerAuthService {
     final data = _map(response.data);
     if (!_successful(response, data)) {
       throw OwnerAuthException(
-        _error(data, 'Complete Telegram verification first.'),
-        code: response.statusCode == 401 ? 'TELEGRAM_PENDING' : null,
+        _error(data, 'Complete email verification first.'),
+        code: response.statusCode == 401 ? 'OWNER_OTP_PENDING' : null,
       );
     }
     final grant = data?['owner_grant'];
