@@ -10,6 +10,7 @@ import '../../core/security/owner_biometric.dart';
 import '../company/company_workspace_screen.dart';
 import '../workspace/workspace_controller.dart';
 import '../workspace/workspace_overlay.dart';
+import '../../shared/widgets/otya_brand_mark.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -83,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   String _voiceState = 'opening';
   String _heard = '';
-  String _nextText = 'Opening your private Otya Next assistant…';
+  String _nextText = 'Opening your private O assistant…';
   String _hudError = '';
   String _pulseError = '';
   String? _conversationId;
@@ -739,20 +740,12 @@ class _HudHeader extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(colors: [scheme.primary, scheme.tertiary]),
-                ),
-                child: const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 16),
-              ),
+              const OtyaBrandMark(size: 30),
               const SizedBox(width: 9),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('OTYA NEXT', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, letterSpacing: 1.6)),
+                  const Text('O', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, letterSpacing: 1.6)),
                   Text(state.toUpperCase(), style: TextStyle(fontSize: 9.5, color: scheme.onSurfaceVariant, letterSpacing: .8)),
                 ],
               ),
