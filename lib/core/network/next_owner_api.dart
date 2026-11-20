@@ -30,7 +30,7 @@ class NextOwnerApi {
           BaseOptions(
             baseUrl: const String.fromEnvironment(
               'OTYA_BASE_URL',
-              defaultValue: 'https://petersmartlink.com',
+              defaultValue: 'https://otya.site',
             ),
             connectTimeout: const Duration(seconds: 12),
             receiveTimeout: const Duration(seconds: 45),
