@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../platform/next_platform_bridge.dart';
+import '../platform/o_platform_bridge.dart';
 
 class OwnerAuthException implements Exception {
   const OwnerAuthException(this.message, {this.code});
@@ -313,7 +313,7 @@ class OwnerAuthService {
         'start': 'owner_$value',
       },
     );
-    await NextPlatformBridge.openUrl(uri.toString());
+    await OPlatformBridge.openUrl(uri.toString());
   }
 
   Future<void> completeOwnerVerification() async {
