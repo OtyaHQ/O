@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/auth/owner_auth_service.dart';
-import '../../core/network/next_owner_api.dart';
+import '../../core/network/o_owner_api.dart';
 import '../home/home_screen.dart';
 
 enum _OwnerStage { loading, signIn, ownerStart, ownerOtp, ownerTelegram, ready }
@@ -154,7 +154,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
         _stage = _OwnerStage.ownerTelegram;
         _busy = true;
         _telegramLaunchStarted = true;
-        _notice = 'Email confirmed. Telegram will open @OtyaPlayerBot directly. Tap Start there, then return to Next.';
+        _notice = 'Email confirmed. Telegram will open @OtyaPlayerBot directly. Tap Start there, then return to O.';
       });
       await _auth.startTelegramOwnerVerification(challenge);
       if (mounted) setState(() => _busy = false);
@@ -202,7 +202,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
       _telegramLaunchStarted = false;
       _setStage(
         _OwnerStage.ready,
-        notice: 'This phone is now trusted. Normal Next launches will open directly.',
+        notice: 'This phone is now trusted. Normal O launches will open directly.',
       );
     } on OwnerAuthException catch (e) {
       if (!mounted) return;
@@ -247,7 +247,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
     if (!signedIn) {
       _setStage(
         _OwnerStage.signIn,
-        notice: 'Your OTYA account session was revoked or expired. Sign in again to restore Next.',
+        notice: 'Your OTYA account session was revoked or expired. Sign in again to restore O.',
       );
       return;
     }
@@ -264,7 +264,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     if (_stage == _OwnerStage.ready) {
       return HomeScreen(
-        api: NextOwnerApi(_auth),
+        api: OOwnerApi(_auth),
         onSignOut: _signOut,
         onOwnerExpired: _ownerExpired,
       );
@@ -281,7 +281,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const _NextIdentity(),
+                  const _OIdentity(),
                   const SizedBox(height: 28),
                   if (_notice.isNotEmpty) ...[
                     _Notice(text: _notice),
@@ -311,7 +311,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
     return _Panel(
       title: 'Sign in once',
       subtitle:
-          'Use your existing OTYA account on this phone. After the one-time owner enrollment, Next keeps this device signed in until you revoke it or replace it.',
+          'Use your existing OTYA account on this phone. After the one-time owner enrollment, O keeps this device signed in until you revoke it or replace it.',
       children: [
         TextField(
           controller: _email,
@@ -385,7 +385,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
     return _Panel(
       title: 'Check your email',
       subtitle:
-          'Enter the five-character device enrollment code. It expires quickly and is never stored by Next.',
+          'Enter the five-character device enrollment code. It expires quickly and is never stored by O.',
       children: [
         TextField(
           controller: _otp,
@@ -412,7 +412,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
     return _Panel(
       title: 'Confirm in Telegram',
       subtitle:
-          'Next opens @OtyaPlayerBot directly in the Telegram app with a single-use challenge. Tap Start there and return here. No browser sign-in is required for this step.',
+          'O opens @OtyaPlayerBot directly in the Telegram app with a single-use challenge. Tap Start there and return here. No browser sign-in is required for this step.',
       children: [
         FilledButton.icon(
           onPressed: _busy ? null : () => _completeTelegram(),
@@ -472,7 +472,7 @@ class _LoadingOwner extends StatelessWidget {
           children: [
             _Orb(size: 66),
             SizedBox(height: 16),
-            Text('Opening Next…'),
+            Text('Opening O…'),
           ],
         ),
       ),
@@ -480,8 +480,8 @@ class _LoadingOwner extends StatelessWidget {
   }
 }
 
-class _NextIdentity extends StatelessWidget {
-  const _NextIdentity();
+class _OIdentity extends StatelessWidget {
+  const _OIdentity();
 
   @override
   Widget build(BuildContext context) {
@@ -489,7 +489,7 @@ class _NextIdentity extends StatelessWidget {
       children: [
         _Orb(size: 78),
         SizedBox(height: 16),
-        Text('Next', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, letterSpacing: -1.2)),
+        Text('O', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, letterSpacing: -1.2)),
         SizedBox(height: 5),
         Text('Your private OTYA intelligence'),
       ],
