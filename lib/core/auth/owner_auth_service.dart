@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../platform/next_platform_bridge.dart';
+import '../config/otya_endpoints.dart';
 
 class OwnerAuthException implements Exception {
   const OwnerAuthException(this.message, {this.code});
@@ -35,10 +36,7 @@ class OwnerAuthService {
   OwnerAuthService._()
       : _dio = Dio(
           BaseOptions(
-            baseUrl: const String.fromEnvironment(
-              'OTYA_BASE_URL',
-              defaultValue: 'https://petersmartlink.com',
-            ),
+            baseUrl: OtyaEndpoints.apiBaseUrl,
             connectTimeout: const Duration(seconds: 12),
             receiveTimeout: const Duration(seconds: 30),
             sendTimeout: const Duration(seconds: 15),
