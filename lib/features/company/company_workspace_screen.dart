@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/network/next_owner_api.dart';
+import '../../core/network/o_owner_api.dart';
 
 class CompanyWorkspaceScreen extends StatefulWidget {
   const CompanyWorkspaceScreen({
@@ -9,7 +9,7 @@ class CompanyWorkspaceScreen extends StatefulWidget {
     required this.onOwnerExpired,
   });
 
-  final NextOwnerApi api;
+  final OOwnerApi api;
   final Future<void> Function() onOwnerExpired;
 
   @override
