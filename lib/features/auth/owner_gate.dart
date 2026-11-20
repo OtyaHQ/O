@@ -154,7 +154,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
         _stage = _OwnerStage.ownerTelegram;
         _busy = true;
         _telegramLaunchStarted = true;
-        _notice = 'Email confirmed. Telegram will open @OtyaPlayerBot directly. Tap Start there, then return to O.';
+        _notice = 'Email confirmed. Telegram will open O's Telegram bot directly. Tap Start there, then return to O.';
       });
       await _auth.startTelegramOwnerVerification(challenge);
       if (mounted) setState(() => _busy = false);
@@ -368,7 +368,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
       children: [
         const _EnrollmentStep(number: '1', text: 'OTYA account signed in'),
         const _EnrollmentStep(number: '2', text: 'Confirm email code'),
-        const _EnrollmentStep(number: '3', text: 'Confirm in @OtyaPlayerBot'),
+        const _EnrollmentStep(number: '3', text: 'Confirm in O's Telegram bot'),
         const SizedBox(height: 16),
         FilledButton.icon(
           onPressed: _busy ? null : _startOwnerUnlock,
@@ -412,7 +412,7 @@ class _OwnerGateState extends State<OwnerGate> with WidgetsBindingObserver {
     return _Panel(
       title: 'Confirm in Telegram',
       subtitle:
-          'O opens @OtyaPlayerBot directly in the Telegram app with a single-use challenge. Tap Start there and return here. No browser sign-in is required for this step.',
+          'O opens O's Telegram bot directly in the Telegram app with a single-use challenge. Tap Start there and return here. No browser sign-in is required for this step.',
       children: [
         FilledButton.icon(
           onPressed: _busy ? null : () => _completeTelegram(),
