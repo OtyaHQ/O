@@ -1,10 +1,10 @@
-# Otya Next AI Execution, Safety and Evaluation Contract
+# O AI Execution, Safety and Evaluation Contract
 
 **Status:** implementation contract for isolated development. It does not authorize production deployment or privileged tool execution.
 
 ## Product objective
 
-Otya Next (Leo) is the private owner assistant inside Otya OS. It should be able to understand a goal, gather evidence, plan safe steps, use approved tools, verify outcomes and report honestly. It must not pretend a task is complete because it generated a plausible answer.
+O (Leo) is the private owner assistant inside Otya OS. It should be able to understand a goal, gather evidence, plan safe steps, use approved tools, verify outcomes and report honestly. It must not pretend a task is complete because it generated a plausible answer.
 
 ## One agent, bounded capabilities
 
@@ -66,7 +66,7 @@ Store memories with explicit type and provenance:
 - **Lesson:** generalized conclusion linked to the incident or test that supports it.
 - **Open item:** unresolved question or work with owner/status.
 
-Memory retrieval must respect product and user permissions. OtyaPoint shop/agency data is not copied into general owner memory. Keep secrets, access tokens, payment credentials and unnecessary personal data out of AI memory. Support correction, expiry and deletion according to the underlying source and retention rules.
+Memory retrieval must respect product and user permissions. Opoint shop/agency data is not copied into general owner memory. Keep secrets, access tokens, payment credentials and unnecessary personal data out of AI memory. Support correction, expiry and deletion according to the underlying source and retention rules.
 
 ## Retrieval and grounding
 
