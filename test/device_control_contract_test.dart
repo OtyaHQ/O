@@ -8,7 +8,7 @@ void main() {
     final activity = File(
       'android/app/src/main/kotlin/com/petersmartlink/next/MainActivity.kt',
     ).readAsStringSync();
-    final api = File('lib/core/network/next_owner_api.dart').readAsStringSync();
+    final api = File('lib/core/network/o_owner_api.dart').readAsStringSync();
 
     for (final permission in [
       'android.permission.CALL_PHONE',
