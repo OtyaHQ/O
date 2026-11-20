@@ -22,6 +22,8 @@ void main() {
     expect(workspace, contains("name: 'Opoint'"));
     expect(workspace, contains("name: 'Omy Play'"));
     expect(workspace, contains("name: 'O'"));
+    expect(workspace, contains("name: 'OHub'"));
+    expect(workspace, contains("name: 'OEnd'"));
   });
 
   test('the owner app keeps its existing Android install identity', () {
