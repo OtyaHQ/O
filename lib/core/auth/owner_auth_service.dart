@@ -126,7 +126,7 @@ class OwnerAuthService {
     final token = await getValidAccessToken();
     if (token != null) return true;
     // A temporary network failure is not a logout. If the securely stored
-    // refresh token still exists, open Next in offline/degraded mode and let
+    // refresh token still exists, open O in offline/degraded mode and let
     // the normal refresh path recover automatically when connectivity returns.
     return _refreshToken != null && _refreshToken!.isNotEmpty;
   }
@@ -247,7 +247,7 @@ class OwnerAuthService {
     await _ensureLoaded();
     final id = _deviceId;
     if (id == null || id.length < 20) {
-      throw const OwnerAuthException('Next could not establish this device identity.');
+      throw const OwnerAuthException('O could not establish this device identity.');
     }
     return {'X-OTYA-Device-ID': id};
   }
