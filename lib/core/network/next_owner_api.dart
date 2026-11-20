@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import '../../features/workspace/workspace_controller.dart';
 import '../auth/owner_auth_service.dart';
 import '../platform/next_platform_bridge.dart';
+import '../config/otya_endpoints.dart';
 
 class OwnerAccessExpired implements Exception {
   const OwnerAccessExpired();
@@ -28,10 +29,7 @@ class NextOwnerApi {
   NextOwnerApi(this._auth)
       : _dio = Dio(
           BaseOptions(
-            baseUrl: const String.fromEnvironment(
-              'OTYA_BASE_URL',
-              defaultValue: 'https://petersmartlink.com',
-            ),
+            baseUrl: OtyaEndpoints.apiBaseUrl,
             connectTimeout: const Duration(seconds: 12),
             receiveTimeout: const Duration(seconds: 45),
             sendTimeout: const Duration(seconds: 20),
