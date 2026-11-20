@@ -70,7 +70,7 @@ Never commit:
 
 - **Talk** — persistent owner conversation, voice and multimodal context
 - **Pulse** — what needs attention now: health, incidents, crashes, releases and support
-- **Activity** — what Next observed, investigated, changed, verified or is waiting on
+- **Activity** — what O observed, investigated, changed, verified or is waiting on
 - **Approvals** — sensitive actions awaiting owner authorization
 - **Memory** — decisions, incidents, lessons and unresolved work
 - **Connections** — GitHub, Cloudflare, Gmail/Resend, Firebase, Telegram and Otya service status
