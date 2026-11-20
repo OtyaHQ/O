@@ -35,7 +35,7 @@ O should feel like a persistent intelligent partner rather than a command consol
 
 ### Backend
 
-O connects to the existing Otya End backend and approved Cloudflare services. Server-side intelligence remains server-side.
+O connects to the existing OEnd backend and approved Cloudflare services. Server-side intelligence remains server-side.
 
 Target backend building blocks:
 
