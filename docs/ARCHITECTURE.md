@@ -89,7 +89,7 @@ Flutter is not used to emulate OS-level assistant behavior. Native Kotlin owns A
 
 Planned native services:
 
-- `NextVoiceInteractionService` — qualifies Next for the Android assistant role and hosts lightweight always-available assistant plumbing.
+- `OVoiceInteractionService` — qualifies Next for the Android assistant role and hosts lightweight always-available assistant plumbing.
 - `NextVoiceInteractionSessionService` — creates active assistant sessions and launches the conversational surface.
 - `NextNotificationListenerService` — optional owner-granted notification context; data is filtered locally before any server transmission.
 - `NextDeviceBridge` — launches apps/deep links, exposes safe device state, media controls and approved Android actions.
