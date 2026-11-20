@@ -15,7 +15,7 @@ if (hasPrivateReleaseSigning) {
 }
 
 android {
-    namespace = "com.petersmartlink.next"
+    namespace = "com.otya.o"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -25,7 +25,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.petersmartlink.next"
+        applicationId = "com.otya.o"
         // Embedded WebView workspace requires Android 7.0 / API 24 or newer.
         minSdk = 24
         targetSdk = flutter.targetSdkVersion
