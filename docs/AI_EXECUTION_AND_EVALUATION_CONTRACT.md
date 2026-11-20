@@ -8,7 +8,7 @@ O (Leo) is the private owner assistant inside Otya OS. It should be able to unde
 
 ## One agent, bounded capabilities
 
-Do not create separate disconnected bots for planning, memory, support, operations and coding. Use one Next identity and conversation experience with server-side capabilities grouped by policy:
+Do not create separate disconnected bots for planning, memory, support, operations and coding. Use one O identity and conversation experience with server-side capabilities grouped by policy:
 
 - **Understand:** classify intent, resolve references, ask only necessary clarifying questions.
 - **Retrieve:** search approved project docs, decisions, incidents, release history and current service status.
@@ -112,12 +112,12 @@ Track pass rates by capability and risk tier. No model should be allowed to eval
 - No production tool execution.
 
 ### B — Read-only connected assistant
-- Connect Next to approved Otya Server health, GitHub and documentation reads.
+- Connect O to approved OEnd health, GitHub and documentation reads.
 - Enforce identity scopes and product boundaries.
 - Display sources, timestamps and confidence.
 
 ### C — Draft and approval workflow
-- Let Next prepare diffs, issues, reports and proposed changes.
+- Let O prepare diffs, issues, reports and proposed changes.
 - Add action-bound approval records and immutable audit events.
 - No automatic production changes.
 
