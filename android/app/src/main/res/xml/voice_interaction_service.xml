@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <voice-interaction-service xmlns:android="http://schemas.android.com/apk/res/android"
-    android:sessionService="com.petersmartlink.next.OVoiceSessionService"
-    android:recognitionService="com.petersmartlink.next.ORecognitionService"
+    android:sessionService="com.otya.o.OVoiceSessionService"
+    android:recognitionService="com.otya.o.ORecognitionService"
     android:supportsAssist="true"
     android:supportsLaunchVoiceAssistFromKeyguard="true"
     android:supportsLocalInteraction="true" />
