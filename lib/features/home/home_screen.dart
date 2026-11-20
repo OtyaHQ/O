@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import '../../core/network/o_owner_api.dart';
-import '../../core/platform/next_platform_bridge.dart';
+import '../../core/platform/o_platform_bridge.dart';
 import '../../core/security/owner_biometric.dart';
 import '../company/company_workspace_screen.dart';
 import '../workspace/workspace_controller.dart';
