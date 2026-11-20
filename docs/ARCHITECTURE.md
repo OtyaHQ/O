@@ -47,7 +47,7 @@ Use feature-first MVVM with repositories and services. UI remains declarative an
 ```text
 lib/
   app/
-    next_app.dart
+    o_app.dart
     router.dart
     theme.dart
   core/
