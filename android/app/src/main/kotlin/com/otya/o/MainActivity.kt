@@ -270,7 +270,7 @@ class MainActivity : FlutterFragmentActivity() {
         val utteranceId = "o-${System.currentTimeMillis()}"
         val result = tts?.speak(text, TextToSpeech.QUEUE_FLUSH, Bundle(), utteranceId)
         if (result == TextToSpeech.ERROR) {
-            emitVoice(mapOf("type" to "error", "message" to "Next could not speak this response."))
+            emitVoice(mapOf("type" to "error", "message" to "O could not speak this response."))
         }
     }
 
@@ -302,7 +302,7 @@ class MainActivity : FlutterFragmentActivity() {
             startRecognizer()
         } else if (!granted) {
             pendingVoiceStart = false
-            emitVoice(mapOf("type" to "error", "message" to "Microphone permission is required for Next live voice."))
+            emitVoice(mapOf("type" to "error", "message" to "Microphone permission is required for O live voice."))
         }
     }
 
@@ -362,7 +362,7 @@ class MainActivity : FlutterFragmentActivity() {
         val isWeb = scheme == "https" || scheme == "http"
         val isTelegramOwnerLink = isAllowedTelegramOwnerLink(uri)
         if (!isWeb && !isTelegramOwnerLink) {
-            result.error("blocked_url", "This external link is not allowed from Next.", null)
+            result.error("blocked_url", "This external link is not allowed from O.", null)
             return
         }
 
@@ -403,7 +403,7 @@ class MainActivity : FlutterFragmentActivity() {
                 Uri.parse("package:$packageName"),
             )
             else -> {
-                result.error("blocked_panel", "That Android settings panel is not allowed from Next.", null)
+                result.error("blocked_panel", "That Android settings panel is not allowed from O.", null)
                 return
             }
         }
