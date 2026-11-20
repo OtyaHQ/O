@@ -478,12 +478,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         _workspace.openText(
           title: request.length > 80 ? '${request.substring(0, 80)}…' : request,
           text: reply.answer,
-          subtitle: 'Otya Next response · ${DateTime.now().toLocal()}',
+          subtitle: 'O response · ${DateTime.now().toLocal()}',
         );
       }
 
       _pushEvent(
-        reply.tool == null ? 'Otya Next answered.' : 'Otya Next used ${reply.tool!.replaceAll('_', ' ')}.',
+        reply.tool == null ? 'O answered.' : 'O used ${reply.tool!.replaceAll('_', ' ')}.',
         severity: _HudSeverity.info,
       );
 
@@ -629,7 +629,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             const SizedBox(width: 10),
                             const Expanded(
                               child: Text(
-                                'Make Otya Next your phone assistant for faster voice access.',
+                                'Make O your phone assistant for faster voice access.',
                                 style: TextStyle(fontSize: 12.5),
                               ),
                             ),
@@ -775,7 +775,7 @@ class _HudHeader extends StatelessWidget {
         ),
         const SizedBox(width: 6),
         PopupMenuButton<String>(
-          tooltip: 'Otya Next controls',
+          tooltip: 'O controls',
           onSelected: (value) {
             if (value == 'refresh') onRefresh();
             if (value == 'assistant') onAssistant();
@@ -784,7 +784,7 @@ class _HudHeader extends StatelessWidget {
           itemBuilder: (_) => [
             const PopupMenuItem(value: 'refresh', child: Text('Refresh system pulse')),
             if (assistantAvailable && !assistantHeld)
-              const PopupMenuItem(value: 'assistant', child: Text('Make Otya Next phone assistant')),
+              const PopupMenuItem(value: 'assistant', child: Text('Make O phone assistant')),
             const PopupMenuDivider(),
             const PopupMenuItem(value: 'signout', child: Text('Sign out and revoke this phone')),
           ],
@@ -839,7 +839,7 @@ class _VoiceCoreState extends State<_VoiceCore> with SingleTickerProviderStateMi
 
     return Semantics(
       button: true,
-      label: widget.listening ? 'Pause Otya Next listening' : 'Start Otya Next voice',
+      label: widget.listening ? 'Pause O listening' : 'Start O voice',
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedBuilder(
