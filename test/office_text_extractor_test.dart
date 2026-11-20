@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:next/features/workspace/office_text_extractor.dart';
+import 'package:o_app/features/workspace/office_text_extractor.dart';
 
 void main() {
   test('extracts DOCX paragraphs locally', () {
@@ -11,7 +11,7 @@ void main() {
       'word/document.xml': '''
 <w:document xmlns:w="urn:test-word">
   <w:body>
-    <w:p><w:r><w:t>Hello Next</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Hello O</w:t></w:r></w:p>
     <w:p><w:r><w:t>Private document</w:t></w:r></w:p>
   </w:body>
 </w:document>
@@ -20,7 +20,7 @@ void main() {
 
     final result = OfficeTextExtractor.extract(bytes, 'docx');
     expect(result.kindLabel, 'DOCX');
-    expect(result.text, contains('Hello Next'));
+    expect(result.text, contains('Hello O'));
     expect(result.text, contains('Private document'));
   });
 
