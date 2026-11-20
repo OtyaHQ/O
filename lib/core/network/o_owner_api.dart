@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../../features/workspace/workspace_controller.dart';
 import '../auth/owner_auth_service.dart';
-import '../platform/next_platform_bridge.dart';
+import '../platform/o_platform_bridge.dart';
 
 class OwnerAccessExpired implements Exception {
   const OwnerAccessExpired();
