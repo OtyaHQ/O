@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
     required this.onOwnerExpired,
   });
 
-  final NextOwnerApi api;
+  final OOwnerApi api;
   final Future<void> Function() onSignOut;
   final Future<void> Function() onOwnerExpired;
 
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   String _voiceState = 'opening';
   String _heard = '';
-  String _nextText = 'Opening your private Otya Next assistant…';
+  String _nextText = 'Opening your private O assistant…';
   String _hudError = '';
   String _pulseError = '';
   String? _conversationId;
@@ -113,8 +113,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     _voiceSubscription?.cancel();
     _listenRestart?.cancel();
     _pulseTimer?.cancel();
-    unawaited(NextPlatformBridge.stopVoiceListening());
-    unawaited(NextPlatformBridge.stopSpeaking());
+    unawaited(OPlatformBridge.stopVoiceListening());
+    unawaited(OPlatformBridge.stopSpeaking());
     super.dispose();
   }
 
@@ -127,12 +127,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       _listening = false;
       _voiceLevel = 0;
       _listenRestart?.cancel();
-      unawaited(NextPlatformBridge.stopVoiceListening());
+      unawaited(OPlatformBridge.stopVoiceListening());
     }
   }
 
   void _subscribeToVoice() {
-    _voiceSubscription = NextPlatformBridge.voiceEvents.listen(
+    _voiceSubscription = OPlatformBridge.voiceEvents.listen(
       _handleVoiceEvent,
       onError: (Object error) {
         if (!mounted) return;
@@ -210,8 +210,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   Future<void> _refreshAssistantState() async {
     try {
-      final available = await NextPlatformBridge.isAssistantRoleAvailable();
-      final held = available ? await NextPlatformBridge.isAssistantRoleHeld() : false;
+      final available = await OPlatformBridge.isAssistantRoleAvailable();
+      final held = available ? await OPlatformBridge.isAssistantRoleHeld() : false;
       if (!mounted) return;
       setState(() {
         _assistantAvailable = available;
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   Future<void> _requestAssistantRole() async {
     try {
-      await NextPlatformBridge.requestAssistantRole();
+      await OPlatformBridge.requestAssistantRole();
       await Future<void>.delayed(const Duration(milliseconds: 500));
       await _refreshAssistantState();
     } catch (_) {
@@ -283,9 +283,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     if (!mounted || !_foreground || !_autoVoice || _chatBusy || _approvalBusy || _speaking || _listening) return;
     _listenRestart?.cancel();
     try {
-      await NextPlatformBridge.startVoiceListening();
+      await OPlatformBridge.startVoiceListening();
       if (!mounted || !_foreground) {
-        await NextPlatformBridge.stopVoiceListening();
+        await OPlatformBridge.stopVoiceListening();
         return;
       }
       setState(() {
@@ -306,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   Future<void> _stopListening() async {
     _listenRestart?.cancel();
     try {
-      await NextPlatformBridge.stopVoiceListening();
+      await OPlatformBridge.stopVoiceListening();
     } catch (_) {}
     if (!mounted) return;
     setState(() {
@@ -324,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   Future<void> _toggleVoice() async {
     if (_speaking) {
-      await NextPlatformBridge.stopSpeaking();
+      await OPlatformBridge.stopSpeaking();
       if (mounted) setState(() => _speaking = false);
       await _startListening();
       return;
@@ -400,7 +400,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       await _cancelPending();
       return;
     }
-    await _sendToNext(text);
+    await _sendToO(text);
   }
 
   Future<void> _approvePending() async {
@@ -423,15 +423,15 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       _scheduleListen(const Duration(milliseconds: 450));
       return;
     }
-    await _sendToNext('approve', confirmedApproval: true);
+    await _sendToO('approve', confirmedApproval: true);
   }
 
   Future<void> _cancelPending() async {
     if (_pendingAction == null || _chatBusy) return;
-    await _sendToNext('cancel it', confirmedApproval: true);
+    await _sendToO('cancel it', confirmedApproval: true);
   }
 
-  Future<void> _sendToNext(String text, {bool confirmedApproval = false}) async {
+  Future<void> _sendToO(String text, {bool confirmedApproval = false}) async {
     final request = text.trim();
     if (request.isEmpty || _chatBusy) return;
     await _stopListening();
@@ -477,12 +477,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         _workspace.openText(
           title: request.length > 80 ? '${request.substring(0, 80)}…' : request,
           text: reply.answer,
-          subtitle: 'Otya Next response · ${DateTime.now().toLocal()}',
+          subtitle: 'O response · ${DateTime.now().toLocal()}',
         );
       }
 
       _pushEvent(
-        reply.tool == null ? 'Otya Next answered.' : 'Otya Next used ${reply.tool!.replaceAll('_', ' ')}.',
+        reply.tool == null ? 'O answered.' : 'O used ${reply.tool!.replaceAll('_', ' ')}.',
         severity: _HudSeverity.info,
       );
 
@@ -491,7 +491,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       try {
         if (!_foreground) return;
         setState(() => _speaking = true);
-        await NextPlatformBridge.speak(reply.answer);
+        await OPlatformBridge.speak(reply.answer);
       } catch (_) {
         if (mounted) {
           setState(() {
@@ -530,8 +530,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     _autoVoice = false;
     _listenRestart?.cancel();
     try {
-      await NextPlatformBridge.stopVoiceListening();
-      await NextPlatformBridge.stopSpeaking();
+      await OPlatformBridge.stopVoiceListening();
+      await OPlatformBridge.stopSpeaking();
     } catch (_) {}
     await widget.onOwnerExpired();
   }
@@ -628,7 +628,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             const SizedBox(width: 10),
                             const Expanded(
                               child: Text(
-                                'Make Otya Next your phone assistant for faster voice access.',
+                                'Make O your phone assistant for faster voice access.',
                                 style: TextStyle(fontSize: 12.5),
                               ),
                             ),
@@ -782,7 +782,7 @@ class _HudHeader extends StatelessWidget {
         ),
         const SizedBox(width: 6),
         PopupMenuButton<String>(
-          tooltip: 'Otya Next controls',
+          tooltip: 'O controls',
           onSelected: (value) {
             if (value == 'refresh') onRefresh();
             if (value == 'assistant') onAssistant();
@@ -791,7 +791,7 @@ class _HudHeader extends StatelessWidget {
           itemBuilder: (_) => [
             const PopupMenuItem(value: 'refresh', child: Text('Refresh system pulse')),
             if (assistantAvailable && !assistantHeld)
-              const PopupMenuItem(value: 'assistant', child: Text('Make Otya Next phone assistant')),
+              const PopupMenuItem(value: 'assistant', child: Text('Make O phone assistant')),
             const PopupMenuDivider(),
             const PopupMenuItem(value: 'signout', child: Text('Sign out and revoke this phone')),
           ],
@@ -846,7 +846,7 @@ class _VoiceCoreState extends State<_VoiceCore> with SingleTickerProviderStateMi
 
     return Semantics(
       button: true,
-      label: widget.listening ? 'Pause Otya Next listening' : 'Start Otya Next voice',
+      label: widget.listening ? 'Pause O listening' : 'Start O voice',
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedBuilder(
