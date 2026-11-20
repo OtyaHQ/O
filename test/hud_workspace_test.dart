@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:next/features/workspace/workspace_controller.dart';
-import 'package:next/features/workspace/workspace_overlay.dart';
+import 'package:o_app/features/workspace/workspace_controller.dart';
+import 'package:o_app/features/workspace/workspace_overlay.dart';
 
 void main() {
   final controller = WorkspaceController.instance;
@@ -90,8 +90,8 @@ normal_setting = visible
     expect(controller.visibleItems.single.text, contains('very-private-material'));
 
     final context = controller.activeAnalysisContext()!;
-    expect(context.text, contains('[redacted by Next]'));
-    expect(context.text, contains('[private key redacted by Next]'));
+    expect(context.text, contains('[redacted by O]'));
+    expect(context.text, contains('[private key redacted by O]'));
     expect(context.text, contains('normal_setting = visible'));
     expect(context.text, isNot(contains('live-secret-value')));
     expect(context.text, isNot(contains('very-private-material')));
