@@ -1,4 +1,4 @@
-name: Next CI
+name: O CI
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: next-ci-${{ github.ref }}
+  group: o-ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
