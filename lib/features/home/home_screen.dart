@@ -752,7 +752,7 @@ class _HudHeader extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('OTYA NEXT', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, letterSpacing: 1.6)),
+                  const Text('O', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, letterSpacing: 1.6)),
                   Text(state.toUpperCase(), style: TextStyle(fontSize: 9.5, color: scheme.onSurfaceVariant, letterSpacing: .8)),
                 ],
               ),
