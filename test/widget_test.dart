@@ -9,12 +9,12 @@ void main() {
     await tester.pumpWidget(const ProviderScope(child: OApp()));
 
     expect(find.byType(OwnerGate), findsOneWidget);
-    expect(find.text('Opening Next…'), findsOneWidget);
+    expect(find.text('Opening O…'), findsOneWidget);
 
     await tester.pump(const Duration(milliseconds: 150));
     expect(
       find.text('Sign in once').evaluate().isNotEmpty ||
-          find.text('Opening Next…').evaluate().isNotEmpty,
+          find.text('Opening O…').evaluate().isNotEmpty,
       isTrue,
     );
   });
