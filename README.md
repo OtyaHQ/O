@@ -1,4 +1,4 @@
-## O
+# O
 
 **O** is the private owner intelligence application within the Otya ecosystem.
 
