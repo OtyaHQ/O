@@ -4,6 +4,10 @@
 
 It is not a second backend and it is not a browser admin dashboard. Otya Next is the secure Android-first interface to the existing OTYA intelligence and operations plane: conversation, voice, approvals, incidents, support, releases, system health, connected services, memory and device actions.
 
+## Approved Otya branding
+
+Use the owner-approved Otya master artwork from Cloudflare: [master lockup](https://assets.otya.site/brand/otya/v4/otya-master-lockup.webp) and [orbital mark](https://assets.otya.site/brand/otya/v4/otya-orbital-mark.webp). Preserve the original lettering, proportions and gradients; do not redraw or substitute fonts. Brand palette: navy `#08265C`, royal blue `#1677FF`, cyan `#00BDEB`, turquoise `#14C7B8`, white `#FFFFFF`.
+
 ## Product direction
 
 Otya Next should feel like a persistent intelligent partner rather than a command console:
