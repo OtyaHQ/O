@@ -272,7 +272,7 @@ class _OverviewTab extends StatelessWidget {
           const _NoticeCard(
             icon: Icons.shield_outlined,
             title: 'Separate systems, one workspace',
-            text: 'OtyaPoint shop and agency balances are not connected to this feed yet. Sales, stock, cash and float figures are deliberately not estimated or mixed with platform telemetry.',
+            text: 'Opoint shop and agency balances are not connected to this feed yet. Sales, stock, cash and float figures are deliberately not estimated or mixed with platform telemetry.',
           ),
         ],
       ),
@@ -302,12 +302,13 @@ class _ProductsTab extends StatelessWidget {
                 ),
           ),
           const SizedBox(height: 16),
-          const _ProductCard(name: 'Otya OS', detail: 'The unified platform and shared ecosystem experience.', state: 'Platform', icon: Icons.grid_view_rounded),
-          const _ProductCard(name: 'Otya End', detail: 'Shared identity, product-scoped APIs and integration services. Runtime signals appear in Overview and Connections.', state: 'Shared backend', icon: Icons.cloud_outlined),
-          const _ProductCard(name: 'OtyaPoint', detail: 'Retail, inventory and mobile-money agency operations. Its live shop records are not connected to this owner workspace yet, so sales, stock, cash and float balances are not displayed here.', state: 'Not connected', icon: Icons.storefront_outlined, warning: true),
-          const _ProductCard(name: 'Otya Media', detail: 'Local-first music and video. Product-specific release telemetry is not yet attributed in this owner feed.', state: 'Local-first', icon: Icons.play_circle_outline_rounded),
-          const _ProductCard(name: 'OtyaHub', detail: 'Public developer and partner documentation. Private business operations and owner controls remain outside the public hub.', state: 'Public surface', icon: Icons.code_rounded),
-          const _ProductCard(name: 'O', detail: 'This private owner assistant and company workspace. Sensitive actions remain approval-gated.', state: 'Current workspace', icon: Icons.auto_awesome_rounded),
+           _ProductCard(name: 'Otya OS', detail: 'Your Smart Platform. Unified platform and shared ecosystem experience.', state: 'Platform', icon: Icons.grid_view_rounded, imageUrl: 'https://assets.otya.site/brand/otya/v4/icons/otya-os.webp'),
+          _ProductCard(name: 'OEnd', detail: 'Shared backend, identity integration and product-scoped APIs.', state: 'Shared backend', icon: Icons.cloud_outlined, imageUrl: 'https://assets.otya.site/brand/otya/v4/otya-master-icon-192.webp'),
+          _ProductCard(name: 'Opoint', detail: 'Shop. Pay. More. Retail, inventory and mobile-money agency operations. Live shop records are not connected to this owner feed yet.', state: 'Not connected', icon: Icons.storefront_outlined, imageUrl: 'https://assets.otya.site/brand/otya/v4/icons/opoint.webp', warning: true),
+          _ProductCard(name: 'Omy Play', detail: 'Watch. Enjoy. Local-first music and video.', state: 'Local-first', icon: Icons.play_circle_outline_rounded, imageUrl: 'https://assets.otya.site/brand/otya/v4/icons/omy-play.webp'),
+          _ProductCard(name: 'OHub', detail: 'Build Together. Public developer and partner community.', state: 'Public surface', icon: Icons.code_rounded, imageUrl: 'https://assets.otya.site/brand/otya/v4/icons/ohub.webp'),
+          _ProductCard(name: 'OID', detail: 'Secure Always. Identity and access service.', state: 'Identity', icon: Icons.lock_outline_rounded, imageUrl: 'https://assets.otya.site/brand/otya/v4/icons/oid.webp'),
+          _ProductCard(name: 'O', detail: 'Private owner intelligence and company workspace. Sensitive actions remain approval-gated.', state: 'Current workspace', icon: Icons.auto_awesome_rounded, imageUrl: 'https://assets.otya.site/brand/otya/v4/otya-master-icon-192.webp'),
           const SizedBox(height: 8),
           const _NoticeCard(
             icon: Icons.lock_outline_rounded,
@@ -420,7 +421,7 @@ class _ConnectionsTab extends StatelessWidget {
         children: [
           Text('Connected services', style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 5),
-          Text('Connection state is read from Otya End. No credentials or secret values are shown here.', style: Theme.of(context).textTheme.bodySmall),
+          Text('Connection state is read from OEnd. No credentials or secret values are shown here.', style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 16),
           if (plugins.isEmpty)
             const _EmptyCard(text: 'The backend did not return any integration records.')
@@ -478,6 +479,7 @@ class _MetricCard extends StatelessWidget {
   final String label;
   final String value;
   final IconData icon;
+  final String? imageUrl;
   final bool warning;
 
   @override
@@ -556,7 +558,7 @@ class _SummaryRow extends StatelessWidget {
 }
 
 class _ProductCard extends StatelessWidget {
-  const _ProductCard({required this.name, required this.detail, required this.state, required this.icon, this.warning = false});
+  const _ProductCard({required this.name, required this.detail, required this.state, required this.icon, this.imageUrl, this.warning = false});
 
   final String name;
   final String detail;
@@ -578,8 +580,11 @@ class _ProductCard extends StatelessWidget {
               Container(
                 width: 42,
                 height: 42,
-                decoration: BoxDecoration(color: scheme.primaryContainer.withValues(alpha: .55), borderRadius: BorderRadius.circular(13)),
-                child: Icon(icon, color: scheme.primary),
+                decoration: BoxDecoration(color: imageUrl == null ? scheme.primaryContainer.withValues(alpha: .55) : Colors.white, borderRadius: BorderRadius.circular(13)),
+                clipBehavior: Clip.antiAlias,
+                child: imageUrl == null
+                    ? Icon(icon, color: scheme.primary)
+                    : Image.network(imageUrl!, width: 42, height: 42, fit: BoxFit.contain, errorBuilder: (_, __, ___) => Icon(icon, color: scheme.primary)),
               ),
               const SizedBox(width: 12),
               Expanded(
