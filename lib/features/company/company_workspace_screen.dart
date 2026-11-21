@@ -420,7 +420,7 @@ class _ConnectionsTab extends StatelessWidget {
         children: [
           Text('Connected services', style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 5),
-          Text('Connection state is read from Otya End. No credentials or secret values are shown here.', style: Theme.of(context).textTheme.bodySmall),
+          Text('Connection state is read from OEnd. No credentials or secret values are shown here.', style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 16),
           if (plugins.isEmpty)
             const _EmptyCard(text: 'The backend did not return any integration records.')
