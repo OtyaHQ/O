@@ -491,7 +491,7 @@ class _NextIdentity extends StatelessWidget {
       children: [
         OtyaBrandLogo(width: 320),
         SizedBox(height: 12),
-        Text('Next', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800, letterSpacing: -0.8)),
+        Text('O', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800, letterSpacing: -0.8)),
         SizedBox(height: 5),
         Text('Your private Otya intelligence'),
       ],
