@@ -6,19 +6,19 @@
 
 **Product identity:** Opoint is the public product name for the shop and business-operations experience. This architecture document describes product boundaries and does not assert legal registration, ownership or trading-name status.
 
-O is the owner's AI coordinator for the whole Otya ecosystem, not an Opoint-only assistant. It should coordinate discovery, planning, execution, verification and reporting across Opoint, Otya End, Omy Play, OtyaHub, Cloudflare, GitHub, Resend and approved partner integrations.
+O is the owner's AI coordinator for the whole Otya ecosystem, not an Opoint-only assistant. It should coordinate discovery, planning, execution, verification and reporting across Opoint, OEnd, Omy Play, OHub, Cloudflare, GitHub, Resend and approved partner integrations.
 
-O must not become a second backend. It is the conversational owner interface and orchestrator. Shared APIs, policy enforcement, product data and audit records remain server-side in Otya End and each product's bounded service.
+O must not become a second backend. It is the conversational owner interface and orchestrator. Shared APIs, policy enforcement, product data and audit records remain server-side in OEnd and each product's bounded service.
 
 ## Ecosystem service map
 
 | Domain | Responsibility | O's permitted role |
 |---|---|---|
 | Otya OS | Shared product experience and identity principles | Cross-service status, decisions and coordination |
-| Otya End | Shared backend, auth contracts, notifications, recovery and integration boundaries | Call documented, scoped APIs; never bypass product authorization |
+| OEnd | Shared backend, auth contracts, notifications, recovery and integration boundaries | Call documented, scoped APIs; never bypass product authorization |
 | Opoint | Shop: inventory, POS, mobile-money agency, airtime/data, bills, float and reconciliation | Read scoped status, prepare reports, draft actions; financial execution requires explicit action-bound approval and provider truth |
 | Omy Play | Local-first audio/video, Send, Private, releases and optional Together services | Monitor builds/releases and investigate crashes; never make playback depend on AI or cloud |
-| OtyaHub | Public docs, developer/partner information, safe examples and release notices | Draft public-safe documentation; never publish secrets or internal operational details |
+| OHub | Public docs, developer/partner information, safe examples and release notices | Draft public-safe documentation; never publish secrets or internal operational details |
 | Cloudflare | Workers, D1, R2, KV, Queues, Workflows, AI, observability and access controls | Inspect permitted state, prepare diffs and verify results; production writes remain gated |
 | GitHub | Source, issues, pull requests, CI, releases and security findings | Inspect, validate, create branches/PRs and summarize; merge/release policy is separate |
 | Resend | Transactional email, delivery events and webhooks | Inspect delivery status and prepare templates; broadcasts and configuration changes require approval |
