@@ -564,6 +564,7 @@ class _ProductCard extends StatelessWidget {
   final String detail;
   final String state;
   final IconData icon;
+  final String? imageUrl;
   final bool warning;
 
   @override
