@@ -1,10 +1,10 @@
 import 'package:flutter/services.dart';
 
-class NextPlatformBridge {
-  NextPlatformBridge._();
+class OPlatformBridge {
+  OPlatformBridge._();
 
-  static const MethodChannel _channel = MethodChannel('com.petersmartlink.next/device');
-  static const EventChannel _voiceChannel = EventChannel('com.petersmartlink.next/voice');
+  static const MethodChannel _channel = MethodChannel('com.otya.o/device');
+  static const EventChannel _voiceChannel = EventChannel('com.otya.o/voice');
 
   static Stream<Map<String, dynamic>>? _voiceEvents;
 

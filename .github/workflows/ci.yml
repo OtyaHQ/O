@@ -1,8 +1,8 @@
-name: Next CI
+name: O CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'production/**']
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: next-ci-${{ github.ref }}
+  group: o-ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -57,7 +57,7 @@ jobs:
         continue-on-error: true
         uses: actions/upload-artifact@v7
         with:
-          name: next-debug-apk
+          name: o-debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
           if-no-files-found: error
           retention-days: 1

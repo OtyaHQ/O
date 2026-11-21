@@ -1,4 +1,4 @@
-package com.petersmartlink.next
+package com.otya.o
 
 import android.app.KeyguardManager
 import android.content.Context
@@ -12,7 +12,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 
-class NextVoiceSession(private val appContext: Context) : VoiceInteractionSession(appContext) {
+class OVoiceSession(private val appContext: Context) : VoiceInteractionSession(appContext) {
     private var openedApp = false
 
     override fun onCreateContentView(): View {
@@ -25,7 +25,7 @@ class NextVoiceSession(private val appContext: Context) : VoiceInteractionSessio
         }
 
         root.addView(TextView(appContext).apply {
-            text = "Next"
+            text = "O"
             textSize = 28f
             setTextColor(Color.WHITE)
             gravity = Gravity.CENTER
@@ -50,13 +50,13 @@ class NextVoiceSession(private val appContext: Context) : VoiceInteractionSessio
         val keyguard = appContext.getSystemService(Context.KEYGUARD_SERVICE) as? KeyguardManager
         if (keyguard?.isKeyguardLocked == true) {
             // Never surface owner data through the assistant session while the
-            // device is locked. Keyguard invocation uses NextLockscreenActivity.
+            // device is locked. Keyguard invocation uses OLockscreenActivity.
             return
         }
 
         openedApp = true
         val intent = Intent(appContext, MainActivity::class.java).apply {
-            action = "com.petersmartlink.next.ASSIST"
+            action = "com.otya.o.ASSIST"
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }
         startAssistantActivity(intent)

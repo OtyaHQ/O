@@ -1,8 +1,8 @@
-# Next architecture
+# O architecture
 
 ## Goal
 
-Next is the private owner interface to OTYA intelligence. The phone app is a secure client and device agent; privileged reasoning, company knowledge and infrastructure actions remain on Cloudflare.
+O is the private owner interface to OTYA intelligence. The phone app is a secure client and device agent; privileged reasoning, company knowledge and infrastructure actions remain on Cloudflare.
 
 The design target is a persistent, conversational operating companion rather than a dashboard or command syntax.
 
@@ -13,7 +13,7 @@ Owner
   │
   ├─ text / voice / camera / screen / approvals
   ▼
-Next Android app
+O Android app
   ├─ Flutter presentation + feature logic
   ├─ secure OTYA identity session
   ├─ native Android assistant/device bridge
@@ -47,7 +47,7 @@ Use feature-first MVVM with repositories and services. UI remains declarative an
 ```text
 lib/
   app/
-    next_app.dart
+    o_app.dart
     router.dart
     theme.dart
   core/
@@ -89,10 +89,10 @@ Flutter is not used to emulate OS-level assistant behavior. Native Kotlin owns A
 
 Planned native services:
 
-- `NextVoiceInteractionService` — qualifies Next for the Android assistant role and hosts lightweight always-available assistant plumbing.
-- `NextVoiceInteractionSessionService` — creates active assistant sessions and launches the conversational surface.
-- `NextNotificationListenerService` — optional owner-granted notification context; data is filtered locally before any server transmission.
-- `NextDeviceBridge` — launches apps/deep links, exposes safe device state, media controls and approved Android actions.
+- `OVoiceInteractionService` — qualifies O for the Android assistant role and hosts lightweight always-available assistant plumbing.
+- `OVoiceSessionService` — creates active assistant sessions and launches the conversational surface.
+- `ONotificationListenerService` — optional owner-granted notification context; data is filtered locally before any server transmission.
+- `OPlatformBridge` — launches apps/deep links, exposes safe device state, media controls and approved Android actions.
 - biometric approval remains on-device; a successful local biometric does not replace server authorization.
 
 ### Wake word
@@ -207,7 +207,7 @@ The model never grants itself permission. Server policy is authoritative.
 
 ## Owner authentication
 
-The existing OTYA account tokens remain the base identity. Next should add a mobile-owner grant rather than reuse browser cookies.
+The existing OTYA account tokens remain the base identity. O should add a mobile-owner grant rather than reuse browser cookies.
 
 Target flow:
 
@@ -215,7 +215,7 @@ Target flow:
 2. app calls `/auth/admin/start` using bearer token
 3. existing email OTP + Telegram verification completes
 4. auth service issues a short-lived, scoped owner grant bound to user/device/session
-5. Next stores it in Android secure storage
+5. O stores it in Android secure storage
 6. owner gateway requires both normal identity and valid owner grant
 7. sensitive operations can additionally require recent biometric + server challenge
 
@@ -226,7 +226,7 @@ Browser admin cookies remain separate and cannot be replayed as mobile credentia
 The backend may decide that the owner should be contacted, but Android decides how that contact is surfaced.
 
 - low priority: add to Pulse
-- normal: Next notification
+- normal: O notification
 - important: high-priority FCM notification with concise safe summary
 - critical: notification requesting owner attention; sensitive details remain hidden until unlock
 
@@ -249,7 +249,7 @@ The owner relationship may have shared history and jokes, but truth, privacy and
 
 ## Browser retirement rule
 
-Do not delete the existing browser Command Center immediately. New owner capability is built in Next first. Once feature parity, mobile owner auth, recovery, audit and emergency access have been tested, browser operational UI can become a recovery-only surface or be removed deliberately.
+Do not delete the existing browser Command Center immediately. New owner capability is built in O first. Once feature parity, mobile owner auth, recovery, audit and emergency access have been tested, browser operational UI can become a recovery-only surface or be removed deliberately.
 
 ## Non-goals
 

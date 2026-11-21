@@ -1,4 +1,4 @@
-name: Build private Next owner APK
+name: Build private O owner APK
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: next-private-release
+  group: o-private-release
   cancel-in-progress: false
 
 jobs:
@@ -51,7 +51,7 @@ jobs:
           NEXT_STORE_PASSWORD: ${{ secrets.NEXT_STORE_PASSWORD }}
         run: |
           set -euo pipefail
-          keystore=android/app/next-owner-release.check.jks
+          keystore=android/app/o-owner-release.check.jks
           trap 'rm -f "$keystore"' EXIT
           if ! printf '%s' "$NEXT_KEYSTORE_BASE64" | base64 --decode > "$keystore"; then
             echo "::error::NEXT_KEYSTORE_BASE64 is not valid Base64. Use the complete Base64 content of the .jks file exactly, including any ending = characters."
@@ -62,7 +62,7 @@ jobs:
             exit 1
           fi
           if ! keytool -list -keystore "$keystore" -storepass "$NEXT_STORE_PASSWORD" -alias "$NEXT_KEY_ALIAS" >/dev/null 2>&1; then
-            echo "::error::The Next keystore, alias, or store password does not match. Check NEXT_KEYSTORE_BASE64, NEXT_KEY_ALIAS, and NEXT_STORE_PASSWORD."
+            echo "::error::The O keystore, alias, or store password does not match. Check NEXT_KEYSTORE_BASE64, NEXT_KEY_ALIAS, and NEXT_STORE_PASSWORD."
             exit 1
           fi
 
@@ -74,14 +74,14 @@ jobs:
           NEXT_STORE_PASSWORD: ${{ secrets.NEXT_STORE_PASSWORD }}
         run: |
           set -euo pipefail
-          printf '%s' "$NEXT_KEYSTORE_BASE64" | base64 --decode > android/app/next-owner-release.jks
+          printf '%s' "$NEXT_KEYSTORE_BASE64" | base64 --decode > android/app/o-owner-release.jks
           cat > android/key.properties <<EOF
           storePassword=$NEXT_STORE_PASSWORD
           keyPassword=$NEXT_KEY_PASSWORD
           keyAlias=$NEXT_KEY_ALIAS
-          storeFile=next-owner-release.jks
+          storeFile=o-owner-release.jks
           EOF
-          chmod 600 android/key.properties android/app/next-owner-release.jks
+          chmod 600 android/key.properties android/app/o-owner-release.jks
 
       - name: Resolve dependencies
         run: flutter pub get
@@ -108,12 +108,12 @@ jobs:
 
       - name: Remove signing material
         if: always()
-        run: rm -f android/key.properties android/app/next-owner-release.jks
+        run: rm -f android/key.properties android/app/o-owner-release.jks
 
       - name: Upload required private APK
         uses: actions/upload-artifact@v7
         with:
-          name: next-owner-release-apk
+          name: o-owner-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
           retention-days: 1

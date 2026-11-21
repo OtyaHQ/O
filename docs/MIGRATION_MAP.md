@@ -1,10 +1,10 @@
-# Next migration map
+# O migration map
 
-This file tracks owner-AI capabilities that currently exist across OTYA and where they belong in the new `next` app. The rule is simple: **move the owner experience into Next; keep privileged execution and secrets on the backend.**
+This file tracks owner-AI capabilities that currently exist across OTYA and where they belong in the new `O` app. The rule is simple: **move the owner experience into O; keep privileged execution and secrets on the backend.**
 
 ## Existing capabilities already discovered
 
-| Existing capability | Current source | Next destination | Backend rule |
+| Existing capability | Current source | O destination | Backend rule |
 | --- | --- | --- | --- |
 | Owner conversations | Otya-Server browser Command Center | Talk | keep conversation store server-side |
 | System status | AI console `system_status` | Pulse / Talk cards | read through owner gateway |
@@ -148,7 +148,7 @@ Android OS restrictions remain authoritative. Do not use unrestricted Accessibil
 
 ## AI capability layers to add on backend
 
-These are capabilities of the same Next identity, not separate bots:
+These are capabilities of the same O identity, not separate bots:
 
 1. **perception** — service events, user reports, telemetry, releases, device context
 2. **attention** — rank what matters and suppress noise
@@ -190,7 +190,7 @@ Wake phrase audio should be processed locally until activation whenever feasible
 
 ## Owner-browser boundary
 
-Ordinary owner operations are retired from the browser. **Next is the sole owner experience** for conversations, reports, approvals, support and protected operations.
+Ordinary owner operations are retired from the browser. **O is the sole owner experience** for conversations, reports, approvals, support and protected operations.
 
 The server continues to enforce role checks, fresh owner authorization and approval policy independently of any app screen. No secret or infrastructure credential enters the APK.
 

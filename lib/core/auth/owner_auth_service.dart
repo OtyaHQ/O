@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../platform/next_platform_bridge.dart';
+import '../platform/o_platform_bridge.dart';
 
 class OwnerAuthException implements Exception {
   const OwnerAuthException(this.message, {this.code});
@@ -37,7 +37,7 @@ class OwnerAuthService {
           BaseOptions(
             baseUrl: const String.fromEnvironment(
               'OTYA_BASE_URL',
-              defaultValue: 'https://petersmartlink.com',
+              defaultValue: 'https://otya.site',
             ),
             connectTimeout: const Duration(seconds: 12),
             receiveTimeout: const Duration(seconds: 30),
@@ -50,10 +50,18 @@ class OwnerAuthService {
 
   static final OwnerAuthService instance = OwnerAuthService._();
 
-  static const _accessKey = 'next_otya_access_token';
-  static const _refreshKey = 'next_otya_refresh_token';
-  static const _ownerGrantKey = 'next_owner_grant';
-  static const _deviceIdKey = 'next_owner_device_id';
+  static const _accessKey = 'o_otya_access_token';
+  static const _refreshKey = 'o_otya_refresh_token';
+  static const _ownerGrantKey = 'o_owner_grant';
+  static const _deviceIdKey = 'o_owner_device_id';
+
+  // Read-once compatibility keys from the previous owner-app identity. Values
+  // are copied unchanged so the server-bound device identity and owner grant
+  // remain valid; the old entries are deleted immediately after migration.
+  static const _legacyAccessKey = 'next_otya_access_token';
+  static const _legacyRefreshKey = 'next_otya_refresh_token';
+  static const _legacyOwnerGrantKey = 'next_owner_grant';
+  static const _legacyDeviceIdKey = 'next_owner_device_id';
 
   final Dio _dio;
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
@@ -86,10 +94,10 @@ class OwnerAuthService {
   }
 
   Future<void> _load() async {
-    _accessToken = await _storage.read(key: _accessKey);
-    _refreshToken = await _storage.read(key: _refreshKey);
-    _ownerGrant = await _storage.read(key: _ownerGrantKey);
-    _deviceId = await _storage.read(key: _deviceIdKey);
+    _accessToken = await _readMigratedValue(_accessKey, _legacyAccessKey);
+    _refreshToken = await _readMigratedValue(_refreshKey, _legacyRefreshKey);
+    _ownerGrant = await _readMigratedValue(_ownerGrantKey, _legacyOwnerGrantKey);
+    _deviceId = await _readMigratedValue(_deviceIdKey, _legacyDeviceIdKey);
     if (_deviceId == null || _deviceId!.length < 20) {
       _deviceId = _newDeviceId();
       await _storage.write(key: _deviceIdKey, value: _deviceId);
@@ -97,11 +105,24 @@ class OwnerAuthService {
     _loaded = true;
   }
 
+  Future<String?> _readMigratedValue(String key, String legacyKey) async {
+    final current = await _storage.read(key: key);
+    if (current != null && current.isNotEmpty) {
+      await _storage.delete(key: legacyKey);
+      return current;
+    }
+    final legacy = await _storage.read(key: legacyKey);
+    if (legacy == null || legacy.isEmpty) return null;
+    await _storage.write(key: key, value: legacy);
+    await _storage.delete(key: legacyKey);
+    return legacy;
+  }
+
   String _newDeviceId() {
     final random = Random.secure();
     final bytes = List<int>.generate(24, (_) => random.nextInt(256));
     final encoded = base64UrlEncode(bytes).replaceAll('=', '');
-    return 'next-$encoded';
+    return 'o-$encoded';
   }
 
   bool _tokenExpired(String token) {
@@ -126,7 +147,7 @@ class OwnerAuthService {
     final token = await getValidAccessToken();
     if (token != null) return true;
     // A temporary network failure is not a logout. If the securely stored
-    // refresh token still exists, open Next in offline/degraded mode and let
+    // refresh token still exists, open O in offline/degraded mode and let
     // the normal refresh path recover automatically when connectivity returns.
     return _refreshToken != null && _refreshToken!.isNotEmpty;
   }
@@ -247,7 +268,7 @@ class OwnerAuthService {
     await _ensureLoaded();
     final id = _deviceId;
     if (id == null || id.length < 20) {
-      throw const OwnerAuthException('Next could not establish this device identity.');
+      throw const OwnerAuthException('O could not establish this device identity.');
     }
     return {'X-OTYA-Device-ID': id};
   }
@@ -313,7 +334,7 @@ class OwnerAuthService {
         'start': 'owner_$value',
       },
     );
-    await NextPlatformBridge.openUrl(uri.toString());
+    await OPlatformBridge.openUrl(uri.toString());
   }
 
   Future<void> completeOwnerVerification() async {
@@ -412,6 +433,9 @@ class OwnerAuthService {
       _storage.delete(key: _accessKey),
       _storage.delete(key: _refreshKey),
       _storage.delete(key: _ownerGrantKey),
+      _storage.delete(key: _legacyAccessKey),
+      _storage.delete(key: _legacyRefreshKey),
+      _storage.delete(key: _legacyOwnerGrantKey),
     ]);
     // Keep the stable private device identity across logout. It is useless on
     // its own because the server-side owner grant is revoked during logout.

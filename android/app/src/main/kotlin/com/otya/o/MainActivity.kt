@@ -1,4 +1,4 @@
-package com.petersmartlink.next
+package com.otya.o
 
 import android.Manifest
 import android.app.role.RoleManager
@@ -21,8 +21,8 @@ import io.flutter.plugin.common.MethodChannel
 import java.util.Locale
 
 class MainActivity : FlutterFragmentActivity() {
-    private val channelName = "com.petersmartlink.next/device"
-    private val voiceChannelName = "com.petersmartlink.next/voice"
+    private val channelName = "com.otya.o/device"
+    private val voiceChannelName = "com.otya.o/voice"
     private val microphoneRequestCode = 4201
 
     private var voiceSink: EventChannel.EventSink? = null
@@ -267,10 +267,10 @@ class MainActivity : FlutterFragmentActivity() {
             return
         }
         runCatching { recognizer?.cancel() }
-        val utteranceId = "next-${System.currentTimeMillis()}"
+        val utteranceId = "o-${System.currentTimeMillis()}"
         val result = tts?.speak(text, TextToSpeech.QUEUE_FLUSH, Bundle(), utteranceId)
         if (result == TextToSpeech.ERROR) {
-            emitVoice(mapOf("type" to "error", "message" to "Next could not speak this response."))
+            emitVoice(mapOf("type" to "error", "message" to "O could not speak this response."))
         }
     }
 
@@ -302,7 +302,7 @@ class MainActivity : FlutterFragmentActivity() {
             startRecognizer()
         } else if (!granted) {
             pendingVoiceStart = false
-            emitVoice(mapOf("type" to "error", "message" to "Microphone permission is required for Next live voice."))
+            emitVoice(mapOf("type" to "error", "message" to "Microphone permission is required for O live voice."))
         }
     }
 
@@ -362,7 +362,7 @@ class MainActivity : FlutterFragmentActivity() {
         val isWeb = scheme == "https" || scheme == "http"
         val isTelegramOwnerLink = isAllowedTelegramOwnerLink(uri)
         if (!isWeb && !isTelegramOwnerLink) {
-            result.error("blocked_url", "This external link is not allowed from Next.", null)
+            result.error("blocked_url", "This external link is not allowed from O.", null)
             return
         }
 
@@ -403,7 +403,7 @@ class MainActivity : FlutterFragmentActivity() {
                 Uri.parse("package:$packageName"),
             )
             else -> {
-                result.error("blocked_panel", "That Android settings panel is not allowed from Next.", null)
+                result.error("blocked_panel", "That Android settings panel is not allowed from O.", null)
                 return
             }
         }

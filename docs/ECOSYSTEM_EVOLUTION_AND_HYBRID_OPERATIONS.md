@@ -1,24 +1,24 @@
-# Otya Next — Ecosystem Evolution and Hybrid Operations
+# O — Ecosystem Evolution and Hybrid Operations
 
 **Status:** architecture and delivery contract. This document authorizes planning, reviewable code changes and read-only monitoring; it does not authorize production deployments, financial actions, destructive changes or privileged actions without explicit approval.
 
 ## Mission
 
-**Product identity:** OtyaPoint is the public product name for the shop and business-operations experience. This architecture document describes product boundaries and does not assert legal registration, ownership or trading-name status.
+**Product identity:** Opoint is the public product name for the shop and business-operations experience. This architecture document describes product boundaries and does not assert legal registration, ownership or trading-name status.
 
-Otya Next is the owner's AI coordinator for the whole Otya ecosystem, not an OtyaPoint-only assistant. It should coordinate discovery, planning, execution, verification and reporting across OtyaPoint, Otya End, Otya Media, OtyaHub, Cloudflare, GitHub, Resend and approved partner integrations.
+O is the owner's AI coordinator for the whole Otya ecosystem, not an Opoint-only assistant. It should coordinate discovery, planning, execution, verification and reporting across Opoint, OEnd, Omy Play, OHub, Cloudflare, GitHub, Resend and approved partner integrations.
 
-Otya Next must not become a second backend. It is the conversational owner interface and orchestrator. Shared APIs, policy enforcement, product data and audit records remain server-side in Otya End and each product's bounded service.
+O must not become a second backend. It is the conversational owner interface and orchestrator. Shared APIs, policy enforcement, product data and audit records remain server-side in OEnd and each product's bounded service.
 
 ## Ecosystem service map
 
-| Domain | Responsibility | Otya Next's permitted role |
+| Domain | Responsibility | O's permitted role |
 |---|---|---|
 | Otya OS | Shared product experience and identity principles | Cross-service status, decisions and coordination |
-| Otya End | Shared backend, auth contracts, notifications, recovery and integration boundaries | Call documented, scoped APIs; never bypass product authorization |
-| OtyaPoint | Shop: inventory, POS, mobile-money agency, airtime/data, bills, float and reconciliation | Read scoped status, prepare reports, draft actions; financial execution requires explicit action-bound approval and provider truth |
-| Otya Media | Local-first audio/video, Send, Private, releases and optional Together services | Monitor builds/releases and investigate crashes; never make playback depend on AI or cloud |
-| OtyaHub | Public docs, developer/partner information, safe examples and release notices | Draft public-safe documentation; never publish secrets or internal operational details |
+| OEnd | Shared backend, auth contracts, notifications, recovery and integration boundaries | Call documented, scoped APIs; never bypass product authorization |
+| Opoint | Shop: inventory, POS, mobile-money agency, airtime/data, bills, float and reconciliation | Read scoped status, prepare reports, draft actions; financial execution requires explicit action-bound approval and provider truth |
+| Omy Play | Local-first audio/video, Send, Private, releases and optional Together services | Monitor builds/releases and investigate crashes; never make playback depend on AI or cloud |
+| OHub | Public docs, developer/partner information, safe examples and release notices | Draft public-safe documentation; never publish secrets or internal operational details |
 | Cloudflare | Workers, D1, R2, KV, Queues, Workflows, AI, observability and access controls | Inspect permitted state, prepare diffs and verify results; production writes remain gated |
 | GitHub | Source, issues, pull requests, CI, releases and security findings | Inspect, validate, create branches/PRs and summarize; merge/release policy is separate |
 | Resend | Transactional email, delivery events and webhooks | Inspect delivery status and prepare templates; broadcasts and configuration changes require approval |
@@ -26,7 +26,7 @@ Otya Next must not become a second backend. It is the conversational owner inter
 
 ## Hybrid intelligence model
 
-Hybrid means multiple cooperating execution modes behind one Otya Next identity, not a collection of disconnected bots:
+Hybrid means multiple cooperating execution modes behind one O identity, not a collection of disconnected bots:
 
 1. **Fast path:** deterministic rules and lightweight models for routing, simple retrieval, status summaries and low-risk tasks.
 2. **Reasoning path:** a stronger model for multi-step planning, ambiguity resolution, cross-repository design and incident analysis.
@@ -42,7 +42,7 @@ Provider routing must be configurable and observable. Keep model/provider creden
 
 For every consequential task: observe the authoritative source; separate verified facts from hypotheses; plan dependencies, risk, rollback and acceptance criteria; execute safely on isolated branches; verify independently; record lessons/open items; report what changed and what remains blocked.
 
-Otya Next must not mark a task complete because it generated a plan, opened a PR, received an HTTP 200, or saw a successful build. Verification claims must match exact evidence.
+O must not mark a task complete because it generated a plan, opened a PR, received an HTTP 200, or saw a successful build. Verification claims must match exact evidence.
 
 ## Approval and autonomy tiers
 
@@ -56,7 +56,7 @@ A phone biometric is not sufficient authorization by itself; the server validate
 
 ## Mobile-money and financial safety
 
-Otya Next may explain, prepare and monitor agency operations. It may not invent balances, post success from a browser response, or autonomously move money. A future financial action must include product/company/branch and operator scope; transaction type, amount, currency, provider reference and idempotency key; server-side limits; provider adapter and authenticated request; signed callback verification or trusted status query; durable states including pending/unknown/confirmed/failed/reversed; separate cash, float, commission, settlement and retail ledgers; duplicate/timeout/reversal/reconciliation controls; immutable audit record; and human approval appropriate to the risk.
+O may explain, prepare and monitor agency operations. It may not invent balances, post success from a browser response, or autonomously move money. A future financial action must include product/company/branch and operator scope; transaction type, amount, currency, provider reference and idempotency key; server-side limits; provider adapter and authenticated request; signed callback verification or trusted status query; durable states including pending/unknown/confirmed/failed/reversed; separate cash, float, commission, settlement and retail ledgers; duplicate/timeout/reversal/reconciliation controls; immutable audit record; and human approval appropriate to the risk.
 
 If a provider times out, the transaction is unknown/pending, not automatically failed or successful. Reconcile before retrying any action that could duplicate a financial operation.
 
@@ -64,7 +64,7 @@ If a provider times out, the transaction is unknown/pending, not automatically f
 
 - Product services remain independently deployable; one outage should not take down unrelated core features.
 - Queue only durable, idempotent work; use bounded retries, dead-letter handling and operator-visible recovery.
-- Keep local-first Otya Media playback independent of cloud availability.
+- Keep local-first Omy Play playback independent of cloud availability.
 - Cache only data safe for the user's scope and defined retention period.
 - Never put secrets, raw payment credentials, unnecessary identity data or private shop records in general semantic memory.
 - Keep product authorization, company/branch scope and audit lineage through every tool call.
@@ -78,12 +78,12 @@ A cross-service release is ready only when the exact branch/commit and impacted 
 ## Implementation sequence
 
 1. Establish one service registry and dependency/owner map.
-2. Expand Otya Next's unified status, incident, approval and activity views over existing scoped APIs.
+2. Expand O's unified status, incident, approval and activity views over existing scoped APIs.
 3. Keep tool calls typed, policy-checked, idempotent and auditable.
 4. Maintain cross-repository CI reporting that distinguishes runner initialization failures from source-code failures.
 5. Complete Otya Auth and product-scoped authorization contracts.
-6. Finish OtyaPoint retail and agency data integration, then provider readiness.
-7. Keep Otya Media startup and local playback robust under backend/provider failure.
+6. Finish Opoint retail and agency data integration, then provider readiness.
+7. Keep Omy Play startup and local playback robust under backend/provider failure.
 8. Add scheduled health summaries and recovery drills through approved Cloudflare Workflows/Queues.
 9. Maintain evaluations for groundedness, tool safety, authorization, recovery and cross-product regression.
 

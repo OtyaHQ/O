@@ -1,4 +1,4 @@
-package com.petersmartlink.next
+package com.otya.o
 
 import android.app.Activity
 import android.app.KeyguardManager
@@ -13,7 +13,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 
-class NextLockscreenActivity : Activity() {
+class OLockscreenActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,7 +38,7 @@ class NextLockscreenActivity : Activity() {
         }
 
         root.addView(TextView(this).apply {
-            text = "Next"
+            text = "O"
             textSize = 34f
             setTextColor(Color.WHITE)
             gravity = Gravity.CENTER
@@ -51,7 +51,7 @@ class NextLockscreenActivity : Activity() {
             setPadding(0, padding / 2, 0, padding)
         })
         root.addView(Button(this).apply {
-            text = "Unlock and open Next"
+            text = "Unlock and open O"
             setOnClickListener { requestUnlock() }
         })
 
@@ -64,17 +64,17 @@ class NextLockscreenActivity : Activity() {
             keyguard.requestDismissKeyguard(
                 this,
                 object : KeyguardManager.KeyguardDismissCallback() {
-                    override fun onDismissSucceeded() = openNext()
+                    override fun onDismissSucceeded() = openO()
                 },
             )
         } else {
-            openNext()
+            openO()
         }
     }
 
-    private fun openNext() {
+    private fun openO() {
         startActivity(Intent(this, MainActivity::class.java).apply {
-            action = "com.petersmartlink.next.ASSIST"
+            action = "com.otya.o.ASSIST"
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         })
         finish()

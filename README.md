@@ -1,12 +1,12 @@
-# Otya Next
+# O
 
-**Otya Next** is the private owner intelligence application within the Otya ecosystem.
+**O** is the private owner intelligence application within the Otya ecosystem.
 
-It is not a second backend and it is not a browser admin dashboard. Otya Next is the secure Android-first interface to the existing OTYA intelligence and operations plane: conversation, voice, approvals, incidents, support, releases, system health, connected services, memory and device actions.
+It is not a second backend and it is not a browser admin dashboard. O is the secure Android-first interface to the existing OTYA intelligence and operations plane: conversation, voice, approvals, incidents, support, releases, system health, connected services, memory and device actions.
 
 ## Product direction
 
-Otya Next should feel like a persistent intelligent partner rather than a command console:
+O should feel like a persistent intelligent partner rather than a command console:
 
 - natural text and real-time voice conversation
 - interruption / barge-in during voice replies
@@ -33,7 +33,7 @@ Otya Next should feel like a persistent intelligent partner rather than a comman
 
 ### Backend
 
-Otya Next connects to the existing Otya End backend and approved Cloudflare services. Server-side intelligence remains server-side.
+O connects to the existing Otya End backend and approved Cloudflare services. Server-side intelligence remains server-side.
 
 Target backend building blocks:
 
@@ -50,9 +50,9 @@ Target backend building blocks:
 
 ## Security boundary
 
-The public Omy Play and other public surfaces must never inherit Otya Next owner permissions.
+The public Omy Play and other public surfaces must never inherit O owner permissions.
 
-Otya Next uses the normal Otya identity, then obtains a separate short-lived owner authorization after server-side role checks and step-up verification. High-impact operations require explicit approval and may require fresh biometric/server verification.
+O uses the normal Otya identity, then obtains a separate short-lived owner authorization after server-side role checks and step-up verification. High-impact operations require explicit approval and may require fresh biometric/server verification.
 
 Never commit:
 
@@ -68,7 +68,7 @@ Never commit:
 
 - **Talk** — persistent owner conversation, voice and multimodal context
 - **Pulse** — what needs attention now: health, incidents, crashes, releases and support
-- **Activity** — what Next observed, investigated, changed, verified or is waiting on
+- **Activity** — what O observed, investigated, changed, verified or is waiting on
 - **Approvals** — sensitive actions awaiting owner authorization
 - **Memory** — decisions, incidents, lessons and unresolved work
 - **Connections** — GitHub, Cloudflare, Gmail/Resend, Firebase, Telegram and Otya service status
@@ -77,7 +77,7 @@ Never commit:
 
 ## Migration rule
 
-Existing AI/admin capabilities are not copied into the client. Their browser UI is retired; Otya Next is the sole owner experience. Privileged execution remains behind authenticated server APIs, with short-lived owner authorization, biometric step-up and explicit approval for high-impact actions.
+Existing AI/admin capabilities are not copied into the client. Their browser UI is retired; O is the sole owner experience. Privileged execution remains behind authenticated server APIs, with short-lived owner authorization, biometric step-up and explicit approval for high-impact actions.
 
 See `docs/ARCHITECTURE.md`, `docs/MIGRATION_MAP.md`, and `docs/AI_EXECUTION_AND_EVALUATION_CONTRACT.md` for the AI execution, safety, hybrid operation, and evaluation gates.
 

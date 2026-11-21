@@ -272,7 +272,7 @@ class WorkspaceController extends ChangeNotifier {
     if ((uri.scheme != 'https' && uri.scheme != 'http') ||
         uri.host.isEmpty ||
         uri.userInfo.isNotEmpty) {
-      throw ArgumentError('Only http/https pages can open inside Next.');
+      throw ArgumentError('Only http/https pages can open inside O.');
     }
     _add(
       WorkspaceItem(
@@ -433,8 +433,8 @@ class WorkspaceController extends ChangeNotifier {
       return WorkspaceOpenResult(
         true,
         developerFile
-            ? 'Opened ${picked.name} locally. Sensitive-looking credentials will be redacted if you ask Next to analyze it.'
-            : 'Opened ${picked.name} in the Next workspace.',
+            ? 'Opened ${picked.name} locally. Sensitive-looking credentials will be redacted if you ask O to analyze it.'
+            : 'Opened ${picked.name} in the O workspace.',
       );
     }
 
@@ -474,7 +474,7 @@ class WorkspaceController extends ChangeNotifier {
             title: picked.name,
             subtitle: _sizeLabel(length),
             text: message.isEmpty
-                ? 'Next could not extract readable text from this Office file.'
+                ? 'O could not extract readable text from this Office file.'
                 : message,
           ),
         );
@@ -492,7 +492,7 @@ class WorkspaceController extends ChangeNotifier {
             title: picked.name,
             subtitle: _sizeLabel(length),
             text:
-                'Next could not safely decode this Office file. The file stayed on this phone and was not uploaded.',
+                'O could not safely decode this Office file. The file stayed on this phone and was not uploaded.',
           ),
         );
         return const WorkspaceOpenResult(
@@ -661,7 +661,7 @@ class WorkspaceController extends ChangeNotifier {
         r'-----BEGIN [^-]*PRIVATE KEY-----[\s\S]*?-----END [^-]*PRIVATE KEY-----',
         caseSensitive: false,
       ),
-      '[private key redacted by Next]',
+      '[private key redacted by O]',
     );
     final assignment = RegExp(
       r'''^(\s*["']?(?:api[_-]?key|secret|token|password|passwd|authorization|auth[_-]?token|access[_-]?token|refresh[_-]?token|client[_-]?secret|private[_-]?key)["']?\s*[:=]\s*)(.+)$''',
@@ -670,14 +670,14 @@ class WorkspaceController extends ChangeNotifier {
     );
     result = result.replaceAllMapped(
       assignment,
-      (match) => '${match.group(1)}[redacted by Next]',
+      (match) => '${match.group(1)}[redacted by O]',
     );
     result = result.replaceAll(
       RegExp(
         r'\bBearer\s+[A-Za-z0-9._~+\-/]+=*',
         caseSensitive: false,
       ),
-      'Bearer [redacted by Next]',
+      'Bearer [redacted by O]',
     );
     return result;
   }
@@ -692,7 +692,7 @@ class WorkspaceController extends ChangeNotifier {
 
   static String _clip(String value) {
     if (value.length <= _maxAnalysisChars) return value;
-    return '${value.substring(0, _maxAnalysisChars)}\n[content clipped by Next]';
+    return '${value.substring(0, _maxAnalysisChars)}\n[content clipped by O]';
   }
 
   static String _sizeLabel(int bytes) {

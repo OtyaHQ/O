@@ -8,7 +8,7 @@ void main() {
     final controller = File('lib/features/workspace/workspace_controller.dart').readAsStringSync();
     final office = File('lib/features/workspace/office_text_extractor.dart').readAsStringSync();
     final pdf = File('lib/features/workspace/pdf_text_extractor.dart').readAsStringSync();
-    final api = File('lib/core/network/next_owner_api.dart').readAsStringSync();
+    final api = File('lib/core/network/o_owner_api.dart').readAsStringSync();
 
     expect(overlay, contains('WebViewWidget'));
     expect(overlay, contains('PdfViewer.file'));

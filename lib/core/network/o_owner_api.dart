@@ -2,14 +2,14 @@ import 'package:dio/dio.dart';
 
 import '../../features/workspace/workspace_controller.dart';
 import '../auth/owner_auth_service.dart';
-import '../platform/next_platform_bridge.dart';
+import '../platform/o_platform_bridge.dart';
 
 class OwnerAccessExpired implements Exception {
   const OwnerAccessExpired();
 }
 
-class NextChatReply {
-  const NextChatReply({
+class OChatReply {
+  const OChatReply({
     required this.answer,
     this.conversationId,
     this.tool,
@@ -24,13 +24,13 @@ class NextChatReply {
   final Map<String, dynamic>? action;
 }
 
-class NextOwnerApi {
-  NextOwnerApi(this._auth)
+class OOwnerApi {
+  OOwnerApi(this._auth)
       : _dio = Dio(
           BaseOptions(
             baseUrl: const String.fromEnvironment(
               'OTYA_BASE_URL',
-              defaultValue: 'https://petersmartlink.com',
+              defaultValue: 'https://otya.site',
             ),
             connectTimeout: const Duration(seconds: 12),
             receiveTimeout: const Duration(seconds: 45),
@@ -64,7 +64,7 @@ class NextOwnerApi {
     final report = data['report'];
     if (report is Map<String, dynamic>) return report;
     if (report is Map) return Map<String, dynamic>.from(report);
-    throw StateError('Next returned an invalid operational report.');
+    throw StateError('O returned an invalid operational report.');
   }
 
   Future<Map<String, dynamic>> status() async {
@@ -76,10 +76,10 @@ class NextOwnerApi {
     final status = data['status'];
     if (status is Map<String, dynamic>) return status;
     if (status is Map) return Map<String, dynamic>.from(status);
-    throw StateError('Next returned an invalid system status.');
+    throw StateError('O returned an invalid system status.');
   }
 
-  Future<NextChatReply> chat(
+  Future<OChatReply> chat(
     String message, {
     String? conversationId,
   }) async {
@@ -87,7 +87,7 @@ class NextOwnerApi {
     if (_isApprovalIntent(normalized)) {
       final pending = _pendingOwnerAction;
       if (pending == null) {
-        return NextChatReply(
+        return OChatReply(
           answer: 'There is no action currently displayed on this phone to approve.',
           conversationId: conversationId,
           tool: 'owner_action_guard',
@@ -102,7 +102,7 @@ class NextOwnerApi {
     if (_isCancellationIntent(normalized)) {
       final pending = _pendingOwnerAction;
       if (pending == null) {
-        return NextChatReply(
+        return OChatReply(
           answer: 'There is no pending owner action on this phone to cancel.',
           conversationId: conversationId,
           tool: 'owner_action_guard',
@@ -133,7 +133,7 @@ class NextOwnerApi {
     if (referencesWorkspace &&
         (comparesWorkspace || WorkspaceController.instance.isOpen) &&
         workspaceContext == null) {
-      return NextChatReply(
+      return OChatReply(
         answer: comparesWorkspace
             ? 'Show two readable documents together first. I need text from both before I can compare them.'
             : 'That view has not exposed readable text for analysis yet.',
@@ -161,7 +161,7 @@ class NextOwnerApi {
     final data = _requireMap(response);
     final answer = data['answer'];
     if (answer is! String || answer.trim().isEmpty) {
-      throw StateError('Next returned an incomplete response.');
+      throw StateError('O returned an incomplete response.');
     }
 
     final action = _actionMap(data['action']);
@@ -178,8 +178,8 @@ class NextOwnerApi {
       final source = workspaceContext.source.trim();
       WorkspaceController.instance.openText(
         title: comparesWorkspace
-            ? 'Next comparison'
-            : 'Next analysis · ${sourceTitle.isEmpty ? 'Workspace' : sourceTitle}',
+            ? 'O comparison'
+            : 'O analysis · ${sourceTitle.isEmpty ? 'Workspace' : sourceTitle}',
         text: trimmedAnswer,
         subtitle: comparesWorkspace
             ? 'AI comparison of the visible owner-selected sources'
@@ -187,7 +187,7 @@ class NextOwnerApi {
       );
     }
 
-    return NextChatReply(
+    return OChatReply(
       answer: trimmedAnswer,
       conversationId: data['conversation_id'] is String
           ? data['conversation_id'] as String
@@ -226,7 +226,7 @@ class NextOwnerApi {
             .hasMatch(normalized);
   }
 
-  Future<NextChatReply> _completeOwnerAction(
+  Future<OChatReply> _completeOwnerAction(
     Map<String, dynamic> pending, {
     required bool approve,
     String? conversationId,
@@ -235,8 +235,8 @@ class NextOwnerApi {
     final token = pending['approval_token']?.toString().trim() ?? '';
     if (id.isEmpty || (approve && token.isEmpty)) {
       _pendingOwnerAction = null;
-      return NextChatReply(
-        answer: 'That approval is no longer valid. Ask Next to prepare the action again.',
+      return OChatReply(
+        answer: 'That approval is no longer valid. Ask O to prepare the action again.',
         conversationId: conversationId,
         tool: 'owner_action_guard',
       );
@@ -268,7 +268,7 @@ class NextOwnerApi {
             ? 'Cancelled. $summary will not be executed.'
             : 'The cancellation returned status ${status.isEmpty ? 'unknown' : status}.';
 
-    return NextChatReply(
+    return OChatReply(
       answer: answer,
       conversationId: conversationId,
       tool: approve ? 'owner_action_approve' : 'owner_action_cancel',
@@ -300,7 +300,7 @@ class NextOwnerApi {
     }
   }
 
-  Future<NextChatReply?> _tryLocalDeviceCommand(
+  Future<OChatReply?> _tryLocalDeviceCommand(
     String message, {
     String? conversationId,
   }) async {
@@ -309,7 +309,7 @@ class NextOwnerApi {
 
     if (RegExp(r'^(?:please )?(?:open|choose|pick|browse) (?:a )?file$|^open files$').hasMatch(normalized)) {
       final result = await workspace.pickFile();
-      return NextChatReply(
+      return OChatReply(
         answer: result.message,
         conversationId: conversationId,
         tool: 'workspace_file',
@@ -318,7 +318,7 @@ class NextOwnerApi {
 
     if (RegExp(r'^(?:close|hide) (?:the )?(?:workspace|browser|file|document|report)$').hasMatch(normalized)) {
       workspace.closeActive();
-      return NextChatReply(
+      return OChatReply(
         answer: 'Closed the current workspace panel.',
         conversationId: conversationId,
         tool: 'workspace_close',
@@ -327,7 +327,7 @@ class NextOwnerApi {
 
     if (RegExp(r'^(?:close|clear) all (?:workspace|workspace tabs|tabs|documents)$').hasMatch(normalized)) {
       workspace.closeAll();
-      return NextChatReply(
+      return OChatReply(
         answer: 'Cleared the workspace.',
         conversationId: conversationId,
         tool: 'workspace_close_all',
@@ -336,7 +336,7 @@ class NextOwnerApi {
 
     if (RegExp(r'^(?:next|switch to next) (?:workspace )?tab$').hasMatch(normalized)) {
       workspace.nextTab();
-      return NextChatReply(
+      return OChatReply(
         answer: 'Switched to the next workspace tab.',
         conversationId: conversationId,
         tool: 'workspace_tab',
@@ -345,7 +345,7 @@ class NextOwnerApi {
 
     if (RegExp(r'^(?:previous|switch to previous) (?:workspace )?tab$').hasMatch(normalized)) {
       workspace.previousTab();
-      return NextChatReply(
+      return OChatReply(
         answer: 'Switched to the previous workspace tab.',
         conversationId: conversationId,
         tool: 'workspace_tab',
@@ -357,7 +357,7 @@ class NextOwnerApi {
     ).hasMatch(normalized)) {
       final operational = await report();
       workspace.openReport('OTYA operational report', operational);
-      return NextChatReply(
+      return OChatReply(
         answer: 'I opened the live OTYA operational report on this screen.',
         conversationId: conversationId,
         tool: 'workspace_report',
@@ -372,7 +372,7 @@ class NextOwnerApi {
       if (query.isNotEmpty) {
         final uri = Uri.https('news.google.com', '/search', {'q': query});
         workspace.openWeb(uri, title: 'News · $query');
-        return NextChatReply(
+        return OChatReply(
           answer: 'I opened live news about $query in the workspace.',
           conversationId: conversationId,
           tool: 'workspace_news',
@@ -388,7 +388,7 @@ class NextOwnerApi {
       if (query.isNotEmpty) {
         final uri = Uri.https('www.google.com', '/search', {'q': query});
         workspace.openWeb(uri, title: 'Web · $query');
-        return NextChatReply(
+        return OChatReply(
           answer: 'I opened web results for $query on this screen.',
           conversationId: conversationId,
           tool: 'workspace_web_search',
@@ -398,8 +398,8 @@ class NextOwnerApi {
 
     if (RegExp(r'^(?:please )?open (?:the )?(?:web )?browser$').hasMatch(normalized)) {
       workspace.openWeb(Uri.parse('https://www.google.com/'), title: 'Web');
-      return NextChatReply(
-        answer: 'Browser opened inside Next.',
+      return OChatReply(
+        answer: 'Browser opened inside O.',
         conversationId: conversationId,
         tool: 'workspace_browser',
       );
@@ -413,8 +413,8 @@ class NextOwnerApi {
         final uri = Uri.tryParse(raw);
         if (uri != null && uri.host.isNotEmpty && (uri.scheme == 'https' || uri.scheme == 'http')) {
           workspace.openWeb(uri, title: uri.host);
-          return NextChatReply(
-            answer: 'Opened ${uri.host} inside Next.',
+          return OChatReply(
+            answer: 'Opened ${uri.host} inside O.',
             conversationId: conversationId,
             tool: 'workspace_browser',
           );
@@ -428,14 +428,14 @@ class NextOwnerApi {
       final app = _localApps[requested];
       if (app != null) {
         try {
-          await NextPlatformBridge.openApp(app.packageName);
-          return NextChatReply(
+          await OPlatformBridge.openApp(app.packageName);
+          return OChatReply(
             answer: 'Opening ${app.label}.',
             conversationId: conversationId,
             tool: 'device_open_app',
           );
         } catch (_) {
-          return NextChatReply(
+          return OChatReply(
             answer: '${app.label} is not installed or Android would not let me open it.',
             conversationId: conversationId,
             tool: 'device_open_app',
@@ -460,24 +460,24 @@ class NextOwnerApi {
       r'^(?:please )?(?:open |manage )?(?:next )?notification settings$|^manage next notifications$',
     ).hasMatch(normalized)) {
       panel = 'notifications';
-      panelAnswer = 'Opening Next notification settings.';
+      panelAnswer = 'Opening O notification settings.';
     } else if (RegExp(
       r'^(?:please )?(?:open )?(?:next |app )?settings$|^open next app settings$',
     ).hasMatch(normalized)) {
       panel = 'app';
-      panelAnswer = 'Opening Next app settings.';
+      panelAnswer = 'Opening O app settings.';
     }
 
     if (panel != null && panelAnswer != null) {
       try {
-        await NextPlatformBridge.openSystemPanel(panel);
-        return NextChatReply(
+        await OPlatformBridge.openSystemPanel(panel);
+        return OChatReply(
           answer: panelAnswer,
           conversationId: conversationId,
           tool: 'device_system_panel',
         );
       } catch (_) {
-        return NextChatReply(
+        return OChatReply(
           answer: 'Android could not open that settings control on this phone.',
           conversationId: conversationId,
           tool: 'device_system_panel',
@@ -490,7 +490,7 @@ class NextOwnerApi {
     ).hasMatch(normalized);
     if (asksDeviceStatus) {
       try {
-        final snapshot = await NextPlatformBridge.deviceSnapshot();
+        final snapshot = await OPlatformBridge.deviceSnapshot();
         final manufacturer = snapshot['manufacturer']?.toString().trim() ?? '';
         final model = snapshot['model']?.toString().trim() ?? '';
         final android = snapshot['release']?.toString().trim() ?? '';
@@ -500,13 +500,13 @@ class NextOwnerApi {
             .where((value) => value.isNotEmpty)
             .join(' ')
             .trim();
-        return NextChatReply(
+        return OChatReply(
           answer: [
             if (name.isNotEmpty) 'This is a $name.',
             if (android.isNotEmpty) 'It is running Android $android.',
             assistantHeld
-                ? 'Next is selected as the phone assistant.'
-                : 'Next is not yet selected as the phone assistant.',
+                ? 'O is selected as the phone assistant.'
+                : 'O is not yet selected as the phone assistant.',
             speechReady
                 ? 'Live speech recognition is available.'
                 : 'Live speech recognition is unavailable on this device.',
@@ -515,7 +515,7 @@ class NextOwnerApi {
           tool: 'device_snapshot',
         );
       } catch (_) {
-        return NextChatReply(
+        return OChatReply(
           answer: 'I could not read the phone status right now.',
           conversationId: conversationId,
           tool: 'device_snapshot',
@@ -528,14 +528,14 @@ class NextOwnerApi {
     ).hasMatch(normalized);
     if (asksForAssistantRole) {
       try {
-        await NextPlatformBridge.requestAssistantRole();
-        return NextChatReply(
-          answer: 'Android opened the assistant selector. Choose Next once and I will use that role from then on.',
+        await OPlatformBridge.requestAssistantRole();
+        return OChatReply(
+          answer: 'Android opened the assistant selector. Choose O once and I will use that role from then on.',
           conversationId: conversationId,
           tool: 'device_assistant_role',
         );
       } catch (_) {
-        return NextChatReply(
+        return OChatReply(
           answer: 'Android could not open the assistant selector on this phone.',
           conversationId: conversationId,
           tool: 'device_assistant_role',
@@ -574,10 +574,10 @@ class NextOwnerApi {
       throw StateError(
         detail is String && detail.trim().isNotEmpty
             ? detail.trim()
-            : 'Next request failed (HTTP $status).',
+            : 'O request failed (HTTP $status).',
       );
     }
-    if (data == null) throw StateError('Next returned an invalid response.');
+    if (data == null) throw StateError('O returned an invalid response.');
     return data;
   }
 }

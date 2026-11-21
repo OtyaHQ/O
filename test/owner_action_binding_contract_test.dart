@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('Next binds owner approval to the exact action shown on this phone', () {
-    final api = File('lib/core/network/next_owner_api.dart').readAsStringSync();
+    final api = File('lib/core/network/o_owner_api.dart').readAsStringSync();
     final home = File('lib/features/home/home_screen.dart').readAsStringSync();
 
     expect(api, contains('_pendingOwnerAction'));

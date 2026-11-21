@@ -1,14 +1,14 @@
-# Otya Next AI Execution, Safety and Evaluation Contract
+# O AI Execution, Safety and Evaluation Contract
 
 **Status:** implementation contract for isolated development. It does not authorize production deployment or privileged tool execution.
 
 ## Product objective
 
-Otya Next (Leo) is the private owner assistant inside Otya OS. It should be able to understand a goal, gather evidence, plan safe steps, use approved tools, verify outcomes and report honestly. It must not pretend a task is complete because it generated a plausible answer.
+O (Leo) is the private owner assistant inside Otya OS. It should be able to understand a goal, gather evidence, plan safe steps, use approved tools, verify outcomes and report honestly. It must not pretend a task is complete because it generated a plausible answer.
 
 ## One agent, bounded capabilities
 
-Do not create separate disconnected bots for planning, memory, support, operations and coding. Use one Next identity and conversation experience with server-side capabilities grouped by policy:
+Do not create separate disconnected bots for planning, memory, support, operations and coding. Use one O identity and conversation experience with server-side capabilities grouped by policy:
 
 - **Understand:** classify intent, resolve references, ask only necessary clarifying questions.
 - **Retrieve:** search approved project docs, decisions, incidents, release history and current service status.
@@ -66,7 +66,7 @@ Store memories with explicit type and provenance:
 - **Lesson:** generalized conclusion linked to the incident or test that supports it.
 - **Open item:** unresolved question or work with owner/status.
 
-Memory retrieval must respect product and user permissions. OtyaPoint shop/agency data is not copied into general owner memory. Keep secrets, access tokens, payment credentials and unnecessary personal data out of AI memory. Support correction, expiry and deletion according to the underlying source and retention rules.
+Memory retrieval must respect product and user permissions. Opoint shop/agency data is not copied into general owner memory. Keep secrets, access tokens, payment credentials and unnecessary personal data out of AI memory. Support correction, expiry and deletion according to the underlying source and retention rules.
 
 ## Retrieval and grounding
 
@@ -112,12 +112,12 @@ Track pass rates by capability and risk tier. No model should be allowed to eval
 - No production tool execution.
 
 ### B — Read-only connected assistant
-- Connect Next to approved Otya Server health, GitHub and documentation reads.
+- Connect O to approved OEnd health, GitHub and documentation reads.
 - Enforce identity scopes and product boundaries.
 - Display sources, timestamps and confidence.
 
 ### C — Draft and approval workflow
-- Let Next prepare diffs, issues, reports and proposed changes.
+- Let O prepare diffs, issues, reports and proposed changes.
 - Add action-bound approval records and immutable audit events.
 - No automatic production changes.
 

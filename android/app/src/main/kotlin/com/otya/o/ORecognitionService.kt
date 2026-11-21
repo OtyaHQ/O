@@ -1,4 +1,4 @@
-package com.petersmartlink.next
+package com.otya.o
 
 import android.content.ComponentName
 import android.content.Intent
@@ -10,14 +10,14 @@ import android.speech.RecognitionService
 import android.speech.SpeechRecognizer
 
 /**
- * Recognition boundary used when Android selects Next as the device assistant.
+ * Recognition boundary used when Android selects O as the device assistant.
  *
- * Next intentionally delegates raw speech decoding to an installed Android
- * speech engine. The transcript can then enter the same private Next/OTYA
+ * O intentionally delegates raw speech decoding to an installed Android
+ * speech engine. The transcript can then enter the same private O/OTYA
  * conversation path as the Flutter live surface; no OTYA credential or owner
  * secret is shared with the speech engine.
  */
-class NextRecognitionService : RecognitionService() {
+class ORecognitionService : RecognitionService() {
     private val mainHandler = Handler(Looper.getMainLooper())
     private var recognizer: SpeechRecognizer? = null
 

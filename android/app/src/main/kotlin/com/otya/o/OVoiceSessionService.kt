@@ -1,11 +1,11 @@
-package com.petersmartlink.next
+package com.otya.o
 
 import android.os.Bundle
 import android.service.voice.VoiceInteractionSession
 import android.service.voice.VoiceInteractionSessionService
 
-class NextVoiceSessionService : VoiceInteractionSessionService() {
+class OVoiceSessionService : VoiceInteractionSessionService() {
     override fun onNewSession(args: Bundle): VoiceInteractionSession {
-        return NextVoiceSession(this)
+        return OVoiceSession(this)
     }
 }

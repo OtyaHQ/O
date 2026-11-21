@@ -1,12 +1,12 @@
 # Ecosystem improvement register
 
-Scope: Next private owner app, Otya Player, Otya-Server, website and connected delivery services.
+Scope: O private owner app, Omy Play, OEnd, website and connected delivery services.
 Updated: 2026-09-13. Code changes are not production verification. Live releases remain deferred.
 This is a target and validation register, not a claim that every capability is absent or complete.
 
 ## Product boundaries
-- Next is the private owner companion and operations interface.
-- Otya Player is the customer media experience.
+- O is the private owner companion and operations interface.
+- Omy Play is the customer media experience.
 - Cloudflare holds privileged execution, identity enforcement and secrets.
 - Public website and Telegram surfaces expose only approved customer information.
 - Extend existing systems after checking current implementation; avoid duplicate services.
@@ -26,7 +26,7 @@ This is a target and validation register, not a claim that every capability is a
 - Offline and slow-network states, cached content with freshness labels, progress and cancellation.
 - Support feedback with consent-based diagnostics; avoid collecting private media or unnecessary personal data.
 
-## Next intelligence and HUD
+## O intelligence and HUD
 - Quiet voice-first launch; content summoned on demand, readable translucent panels, focus/hide/restore.
 - Real report time ranges, source references and timestamps; distinguish retrieved data from AI interpretation.
 - Explicit comparison of visible readable documents; unavailable extraction must not silently omit a document.
