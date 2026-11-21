@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../shared/widgets/otya_brand.dart';
+
 import '../../core/auth/owner_auth_service.dart';
 import '../../core/network/next_owner_api.dart';
 import '../home/home_screen.dart';
@@ -487,11 +489,11 @@ class _NextIdentity extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        _Orb(size: 78),
-        SizedBox(height: 16),
-        Text('Next', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, letterSpacing: -1.2)),
+        OtyaBrandLogo(width: 320),
+        SizedBox(height: 12),
+        Text('Next', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800, letterSpacing: -0.8)),
         SizedBox(height: 5),
-        Text('Your private OTYA intelligence'),
+        Text('Your private Otya intelligence'),
       ],
     );
   }
@@ -503,19 +505,7 @@ class _Orb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: LinearGradient(colors: [scheme.primary, scheme.tertiary]),
-        boxShadow: [
-          BoxShadow(color: scheme.primary.withValues(alpha: .22), blurRadius: 34, spreadRadius: 3),
-        ],
-      ),
-      child: Icon(Icons.auto_awesome_rounded, color: Colors.white, size: size * .42),
-    );
+    return OtyaBrandMark(size: size);
   }
 }
 
