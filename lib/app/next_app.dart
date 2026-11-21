@@ -21,12 +21,17 @@ class NextApp extends ConsumerWidget {
   ThemeData _theme(Brightness brightness) {
     final dark = brightness == Brightness.dark;
     final scheme = ColorScheme.fromSeed(
-      seedColor: const Color(0xFF7C5CFF),
+      seedColor: const Color(0xFF1677FF),
       brightness: brightness,
-      surface: dark ? const Color(0xFF111015) : const Color(0xFFF8F7FB),
+      surface: dark ? const Color(0xFF08265C) : const Color(0xFFFFFFFF),
+    );
+    final brandScheme = scheme.copyWith(
+      primary: const Color(0xFF1677FF),
+      secondary: const Color(0xFF00BDEB),
+      tertiary: const Color(0xFF14C7B8),
     );
     return ThemeData(
-      colorScheme: scheme,
+      colorScheme: brandScheme,
       brightness: brightness,
       useMaterial3: true,
       scaffoldBackgroundColor: scheme.surface,
