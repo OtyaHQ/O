@@ -6,7 +6,7 @@ void main() {
   test('O owner enrollment opens Telegram app challenge without web OAuth', () {
     final auth = File('lib/core/auth/owner_auth_service.dart').readAsStringSync();
     final activity = File(
-      'android/app/src/main/kotlin/com/petersmartlink/next/MainActivity.kt',
+      'android/app/src/main/kotlin/com/otya/o/MainActivity.kt',
     ).readAsStringSync();
     final gate = File('lib/features/auth/owner_gate.dart').readAsStringSync();
 
