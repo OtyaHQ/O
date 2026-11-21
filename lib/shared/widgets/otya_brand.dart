@@ -14,7 +14,7 @@ class OtyaBrandLogo extends StatelessWidget {
     return Image.network(
       _url,
       width: width,
-      height: width * (179 / 560),
+      height: width * (208 / 560),
       fit: BoxFit.contain,
       filterQuality: FilterQuality.high,
       semanticLabel: 'Otya — One ecosystem. Endless possibilities.',
