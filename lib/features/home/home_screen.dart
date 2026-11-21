@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   String _voiceState = 'opening';
   String _heard = '';
-  String _nextText = 'Opening your private O assistant…';
+  String _oText = 'Opening your private O assistant…';
   String _hudError = '';
   String _pulseError = '';
   String? _conversationId;
@@ -416,7 +416,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     setState(() => _approvalBusy = false);
     if (!confirmed) {
       setState(() {
-        _nextText = 'Nothing was executed.';
+        _oText = 'Nothing was executed.';
         _voiceState = 'idle';
       });
       _pushEvent('Owner confirmation was cancelled.', severity: _HudSeverity.info);
@@ -442,7 +442,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       _voiceState = 'thinking';
       _hudError = '';
       _heard = confirmedApproval ? _heard : request;
-      _nextText = '…';
+      _oText = '…';
     });
 
     try {
@@ -450,7 +450,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       if (!mounted) return;
       setState(() {
         if (reply.conversationId?.isNotEmpty == true) _conversationId = reply.conversationId;
-        _nextText = reply.answer;
+        _oText = reply.answer;
         _chatBusy = false;
         if (reply.approvalRequired && reply.action != null) {
           _pendingAction = reply.action;
@@ -511,7 +511,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         _chatBusy = false;
         _voiceState = 'attention';
         _hudError = message;
-        _nextText = 'I could not complete that request.';
+        _oText = 'I could not complete that request.';
       });
       _pushEvent(message, severity: _HudSeverity.error);
       _scheduleListen(const Duration(seconds: 1));
@@ -649,7 +649,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     ),
                   if (_showTranscript || _hudError.isNotEmpty) _LiveTranscriptHud(
                     heard: _heard,
-                    answer: _nextText,
+                    answer: _oText,
                     error: _hudError,
                     listening: _listening,
                     speaking: _speaking,
